@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Trunaturales Hair Products</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/feather-icons"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<!-- Paystack -->
+<script src="https://js.paystack.co/v1/inline.js"></script>
+
+<style>
+:root{
+  --cream:#fffdf8;
+  --accent:#e8f5c8;
+  --green:#4CAF50;
+  --deep-green:#1b5e20;
+  --gradient:linear-gradient(135deg,#4CAF50,#8BC34A);
+  --dark:#1a1a1a;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Poppins;background:var(--cream);color:var(--dark);overflow-x:hidden}
+h1,h2,h3{font-family:'Playfair Display'}
+section{padding:120px 8%}
+.section-title{text-align:center;font-size:3rem;margin-bottom:60px}
+
+/* NAV */
+.navbar{
+ position:fixed;width:100%;top:0;height: 70px;
+ display:flex;justify-content:space-between;align-items:center;
+ padding:0 8%;
+ background:rgba(255,255,255,0.7);
+ backdrop-filter:blur(15px);
+ z-index:999
+}
+.logo{width:60px}
+.nav-links a {
+  position: relative;
+  text-decoration: none;
+  color: var(--dark);
+  font-weight: 500;
+  padding-bottom: 4px;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--green);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.nav-links a:hover::after {
+  transform: scaleX(1);
+}
+.nav-links{display:flex;gap:40px}
+.nav-links a{text-decoration:none;color:var(--dark);font-weight:500}
+.icons{display:flex;gap:20px;align-items:center}
+.hamburger{display:none;cursor:pointer}
+
+/* Cart icon with badge */
+.cart-wrapper{position:relative;cursor:pointer;display:flex;align-items:center}
+.cart-badge{
+ position:absolute;
+ top:-8px;right:-8px;
+ background:var(--green);
+ color:white;
+ font-size:11px;
+ font-weight:700;
+ font-family:Poppins;
+ width:19px;height:19px;
+ border-radius:50%;
+ display:flex;align-items:center;justify-content:center;
+ display:none;
+ box-shadow:0 2px 8px rgba(76,175,80,0.5);
+ transition:transform .2s;
+}
+.cart-badge.pop{animation:badgePop .3s ease}
+@keyframes badgePop{0%{transform:scale(1)}50%{transform:scale(1.5)}100%{transform:scale(1)}}
+
+.mobile-menu{
+ position:fixed;top:0;right:-100%;width:70%;height:100%;
+ background:white;padding:50px;transition:.5s;z-index:1000
+}
+.mobile-menu.active{right:0}
+
+/* HERO */
+.hero{height:100vh;position:relative;overflow:hidden}
+.slide{position:absolute;width:100%;height:100%;background-size:cover;background-position:center;opacity:0;transition:opacity 1.5s}
+.slide.active{opacity:1}
+.hero-overlay{
+ position:absolute;inset:0;
+ background:linear-gradient(to top,rgba(0,0,0,0.7),transparent);
+ display:flex;align-items:center;justify-content:center;text-align:center;color:white
+}
+.hero h1{font-size:3.5rem}
+.btn{
+ margin-top:20px;padding:14px 30px;border:none;border-radius:30px;
+ background:var(--gradient);color:white;font-weight:600;
+ cursor:pointer;transition:.3s
+}
+.btn:hover{transform:translateY(-5px) scale(1.05)}
+
+/* CARDS */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:35px}
+.card{
+ border-radius:25px;overflow:hidden;background:white;
+ box-shadow:0 25px 50px rgba(0,0,0,0.08);
+ transform:translateY(40px);opacity:0;
+ position:relative;
+}
+.card img{width:100%;height:260px;object-fit:cover;display:block}
+.card-overlay{
+ position:absolute;top:0;left:0;right:0;bottom:0;
+ background:rgba(0,0,0,0.55);
+ display:flex;flex-direction:column;justify-content:center;align-items:center;
+ gap:12px;
+ opacity:0;transition:.3s
+}
+.card:hover .card-overlay{opacity:1}
+
+/* Two buttons on card */
+.card-btn{
+ padding:10px 24px;
+ border:none;border-radius:30px;
+ font-family:Poppins;font-size:0.88rem;font-weight:600;
+ cursor:pointer;transition:.25s;
+ width:155px;text-align:center
+}
+.card-btn.view{
+ background:rgba(255,255,255,0.15);
+ border:2px solid rgba(255,255,255,0.8);
+ color:white;
+ backdrop-filter:blur(4px);
+ text-decoration:none;
+ display:inline-flex;
+ align-items:center;
+ justify-content:center;
+}
+.card-btn.view:hover{background:rgba(255,255,255,0.3)}
+.card-btn.add{
+ background:var(--gradient);
+ color:white;
+ border:2px solid transparent;
+}
+.card-btn.add:hover{transform:scale(1.06)}
+
+/* CART DRAWER */
+.cart{
+ position:fixed;right:-480px;top:0;
+ width:420px;height:100%;
+ background:var(--cream);
+ box-shadow:-4px 0 60px rgba(0,0,0,0.18);
+ transition:.42s cubic-bezier(.4,0,.2,1);
+ z-index:1000;
+ display:flex;flex-direction:column;
+}
+.cart.active{right:0}
+
+.cart-header{
+ display:flex;justify-content:space-between;align-items:center;
+ padding:28px 28px 20px;
+ border-bottom:1px solid rgba(0,0,0,0.07);
+}
+.cart-header h2{
+ font-family:'Playfair Display';
+ font-size:1.6rem;color:var(--dark)
+}
+.cart-close-btn{
+ background:none;border:none;cursor:pointer;
+ width:36px;height:36px;border-radius:50%;
+ display:flex;align-items:center;justify-content:center;
+ background:#f0f0f0;transition:.2s
+}
+.cart-close-btn:hover{background:#e0e0e0;transform:rotate(90deg)}
+
+.cart-body{
+ flex:1;overflow-y:auto;
+ padding:20px 28px;
+ scrollbar-width:thin;scrollbar-color:var(--green) transparent;
+}
+
+.cart-item{
+ display:flex;align-items:center;gap:14px;
+ padding:14px 0;
+ border-bottom:1px solid rgba(0,0,0,0.06);
+}
+.cart-item-img{
+ width:64px;height:64px;border-radius:14px;
+ object-fit:cover;flex-shrink:0;
+}
+.cart-item-info{flex:1}
+.cart-item-name{font-weight:600;font-size:.92rem;margin-bottom:4px}
+.cart-item-price{color:var(--green);font-weight:700;font-size:.9rem}
+.qty-control{
+ display:flex;align-items:center;gap:6px;margin-top:6px
+}
+.qty-btn{
+ width:26px;height:26px;border:none;border-radius:50%;
+ background:var(--accent);color:var(--deep-green);
+ font-size:1rem;font-weight:700;cursor:pointer;transition:.2s;
+ display:flex;align-items:center;justify-content:center;line-height:1;
+}
+.qty-btn:hover{background:var(--green);color:white}
+.qty-num{font-weight:600;font-size:.9rem;min-width:18px;text-align:center}
+.cart-item-remove{
+ background:none;border:none;cursor:pointer;
+ color:#ccc;transition:.2s;flex-shrink:0;padding:4px
+}
+.cart-item-remove:hover{color:#e53935}
+
+.cart-empty{
+ text-align:center;padding:60px 0;color:#aaa;
+ font-size:.95rem;
+}
+.cart-empty svg{margin-bottom:16px;opacity:.3}
+
+.cart-footer{
+ padding:20px 28px 28px;
+ border-top:1px solid rgba(0,0,0,0.07);
+ background:white;
+}
+.cart-summary{
+ display:flex;justify-content:space-between;align-items:center;
+ margin-bottom:18px;
+}
+.cart-summary span{font-size:.9rem;color:#666}
+.cart-total-val{
+ font-family:'Playfair Display';font-size:1.5rem;font-weight:700;color:var(--dark)
+}
+.pay-btn{
+ width:100%;padding:16px;border:none;border-radius:30px;
+ background:var(--gradient);color:white;
+ font-family:Poppins;font-size:1rem;font-weight:600;
+ cursor:pointer;transition:.3s;
+ box-shadow:0 8px 24px rgba(76,175,80,0.35);
+ letter-spacing:.4px;
+}
+.pay-btn:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(76,175,80,0.45)}
+.cart-overlay{
+ position:fixed;inset:0;background:rgba(0,0,0,0.4);
+ z-index:999;opacity:0;pointer-events:none;
+ transition:.4s;backdrop-filter:blur(2px)
+}
+.cart-overlay.active{opacity:1;pointer-events:all}
+
+/* CHECKOUT OVERLAY */
+.checkout-overlay{
+ position:fixed;inset:0;
+ background:rgba(0,0,0,0.7);
+ z-index:2001;
+ display:none;
+ align-items:center;
+ justify-content:center;
+ backdrop-filter:blur(6px);
+ padding:20px;
+}
+.checkout-overlay.open{display:flex}
+
+.checkout-box{
+ background:white;
+ border-radius:28px;
+ width:100%;max-width:500px;
+ max-height:90vh;
+ overflow-y:auto;
+ box-shadow:0 40px 100px rgba(0,0,0,0.3);
+ scrollbar-width:thin;
+ scrollbar-color:var(--green) transparent;
+}
+
+.co-step{display:none;padding:38px 36px}
+.co-step.active{display:block}
+
+.co-step-header{
+ display:flex;align-items:center;justify-content:space-between;
+ margin-bottom:28px;
+}
+.co-step-header h2{
+ font-family:'Playfair Display';font-size:1.6rem;
+}
+.co-close{
+ background:#f0f0f0;border:none;cursor:pointer;
+ width:36px;height:36px;border-radius:50%;
+ display:flex;align-items:center;justify-content:center;
+ transition:.2s;flex-shrink:0;
+}
+.co-close:hover{background:#e0e0e0;transform:rotate(90deg)}
+
+.co-progress{
+ display:flex;gap:8px;justify-content:center;margin-bottom:30px;
+}
+.co-dot{
+ width:8px;height:8px;border-radius:50%;
+ background:#ddd;transition:.3s;
+}
+.co-dot.active{background:var(--green);width:24px;border-radius:4px;}
+
+.co-field{margin-bottom:18px}
+.co-field label{
+ display:block;font-size:.82rem;font-weight:600;
+ color:#555;margin-bottom:6px;letter-spacing:.4px;text-transform:uppercase;
+}
+.co-input{
+ width:100%;padding:14px 18px;
+ border:2px solid #eee;border-radius:14px;
+ font-family:Poppins;font-size:.95rem;
+ outline:none;transition:.25s;color:var(--dark);
+}
+.co-input:focus{border-color:var(--green);background:#fafff6}
+
+.co-order-item{
+ display:flex;align-items:center;gap:12px;
+ padding:10px 0;border-bottom:1px solid #f0f0f0;
+}
+.co-order-item img{
+ width:48px;height:48px;border-radius:10px;object-fit:cover;
+}
+.co-order-item-name{font-weight:600;font-size:.88rem;flex:1}
+.co-order-item-sub{font-size:.82rem;color:#888;margin-top:2px}
+.co-order-total{
+ display:flex;justify-content:space-between;align-items:center;
+ padding:16px 0 4px;
+}
+.co-order-total span:first-child{font-weight:600;font-size:.9rem;color:#555}
+.co-order-total-val{
+ font-family:'Playfair Display';font-size:1.5rem;
+ font-weight:700;color:var(--dark);
+}
+
+.co-customer-preview{
+ background:#f8f8f8;border-radius:14px;
+ padding:14px 16px;margin-bottom:20px;
+ font-size:.88rem;line-height:1.7;color:#555;
+}
+.co-customer-preview strong{color:var(--dark)}
+
+.co-pay-options{display:flex;flex-direction:column;gap:14px;margin-top:10px}
+.co-pay-btn{
+ display:flex;align-items:center;justify-content:center;gap:12px;
+ width:100%;padding:17px 24px;
+ border:none;border-radius:16px;
+ font-family:Poppins;font-size:1rem;font-weight:600;
+ cursor:pointer;transition:.3s;letter-spacing:.3px;
+}
+.co-pay-btn.paystack{
+ background:var(--gradient);color:white;
+ box-shadow:0 8px 24px rgba(76,175,80,0.35);
+}
+.co-pay-btn.paystack:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(76,175,80,0.45)}
+.co-pay-btn.whatsapp{
+ background:#25D366;color:white;
+ box-shadow:0 8px 24px rgba(37,211,102,0.35);
+}
+.co-pay-btn.whatsapp:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(37,211,102,0.45)}
+
+.co-actions{display:flex;gap:12px;margin-top:26px}
+.co-back{
+ flex:1;padding:13px;border:2px solid #eee;
+ border-radius:30px;background:none;
+ font-family:Poppins;font-weight:600;cursor:pointer;
+ transition:.2s;font-size:.95rem;
+}
+.co-back:hover{border-color:#ccc}
+.co-next{
+ flex:2;padding:13px;border:none;
+ border-radius:30px;background:var(--gradient);
+ color:white;font-family:Poppins;font-weight:600;
+ cursor:pointer;transition:.2s;font-size:.95rem;
+}
+.co-next:hover{transform:translateY(-2px)}
+
+/* STORY */
+.story-text,.story-img{opacity:0;transform:translateY(40px)}
+
+footer{
+ background:var(--deep-green);color:white;padding:80px 20px;text-align:center
+}
+.footer-social{display:flex;gap:20px;justify-content:center;margin:24px 0 16px}
+.footer-social a{
+ color:white;display:flex;align-items:center;justify-content:center;
+ width:42px;height:42px;border-radius:50%;
+ background:rgba(255,255,255,0.12);transition:.25s;
+}
+.footer-social a:hover{background:rgba(255,255,255,0.28);transform:translateY(-3px)}
+.footer-links a{
+ color:rgba(255,255,255,0.85);text-decoration:none;
+ display:block;margin-bottom:8px;transition:.2s
+}
+.footer-links a:hover{color:white;padding-left:6px}
+
+.price-original{
+ text-decoration:line-through;
+ color:#aaa;font-size:.85rem;margin-right:6px
+}
+.price-final{
+ color:var(--green);font-weight:700;font-size:1rem
+}
+@media(max-width:768px){
+
+  .nav-links{
+    position: fixed;
+    top: 70px;
+    right: -100%;
+    width: 75%;
+    height: calc(100vh - 70px);
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(14px);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 50px 30px;
+    gap: 28px;
+    transition: right 0.45s cubic-bezier(.4,0,.2,1);
+    box-shadow: -20px 0 60px rgba(0,0,0,0.12);
+    z-index: 1000;
+  }
+
+  .nav-links.active{
+    right: 0;
+  }
+
+  .hamburger{
+    display: block;
+    cursor: pointer;
+  }
+
+  .nav-links a{
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--dark);
+    position: relative;
+    padding: 14px 18px;
+    border-radius: 12px;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateX(30px);
+  }
+
+  .nav-links.active a{
+    animation: navFade 0.5s forwards;
+  }
+
+  .nav-links.active a:nth-child(1){animation-delay:0.1s}
+  .nav-links.active a:nth-child(2){animation-delay:0.2s}
+  .nav-links.active a:nth-child(3){animation-delay:0.3s}
+
+  @keyframes navFade{
+    to{
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .nav-links a::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s ease;
+    z-index: -1;
+    border-radius: 12px;
+  }
+
+  .nav-links a:hover::before{
+    transform: scaleX(1);
+  }
+
+  .nav-links a:hover{
+    transform: translateX(6px);
+  }
+
+  .cart{
+    width:100%;
+    right:-100%;
+  }
+
+  .co-step{padding:28px 22px}
+  .co-step-header h2{font-size:1.35rem}
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+ <img src="images/logo.jpeg" class="logo" alt="Élan Luxe Hair">
+ <div class="nav-links">
+  <a href="product.html">Products</a>
+  <a href="consult.html">Consult</a>
+ </div>
+ <div class="icons">
+  <div class="cart-wrapper" onclick="toggleCart()">
+   <i data-feather="shopping-cart"></i>
+   <span class="cart-badge" id="cartBadge">0</span>
+  </div>
+ <i data-feather="menu" class="hamburger"
+   onclick="document.querySelector('.nav-links').classList.toggle('active')"></i> 
+ </div>
+</div>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+ <a href="product.html">Products</a><br><br>
+ <a href="consult.html">Consult</a>
+</div>
+
+<!-- HERO -->
+<div class="hero" id="hero">
+ <div class="hero-overlay">
+  <div>
+   <h1>Elevate Your Hair Ritual</h1>
+   <button class="btn">Shop Collection</button>
+  </div>
+ </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+ <h2 class="section-title">About</h2>
+ <p style="max-width:700px;margin:auto;text-align:center">
+  Crafted with Ayurvedic herbs, spices and natural oils, our products are handpicked and formulated with your hair in mind.
+</section>
+
+<!-- STORY -->
+<section id="story">
+ <h2 class="section-title">Our Story</h2>
+ <div class="grid" style="align-items:center">
+ <div class="story-img">
+   <img src="images/story.jpeg" style="width:100%;border-radius:25px">
+  </div>
+
+  <div class="story-text">
+   <p style="font-size:1.1rem;line-height:1.8">
+    Trunaturales Hair Products was born from a vision to redefine hair care as a ritual of elegance.
+    Rooted in ancient ayuvedic wisdom and elevated by modern science and luxury formulation, every product is crafted
+    to nourish, restore, and transform your hair. Our philosophy blends nature with innovation  giving
+    you not just products but healthy hair care.
+   </p>
+  </div>
+</section>
+
+<!-- BEST SELLERS -->
+<section id="best-sellers">
+ <h2 class="section-title">Best Sellers</h2>
+ <div class="grid" id="bestGrid"></div>
+</section>
+
+<!-- COMBOS -->
+<section id="combos">
+ <h2 class="section-title">Combos</h2>
+ <div class="grid" id="comboGrid"></div>
+</section>
+
+<!-- CART OVERLAY -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+
+<!-- CART DRAWER -->
+<div class="cart" id="cart">
+ <div class="cart-header">
+  <h2>Your Cart</h2>
+  <button class="cart-close-btn" onclick="toggleCart()">
+   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+ </div>
+ <div class="cart-body" id="cartItems"></div>
+ <div class="cart-footer">
+  <div class="cart-summary">
+   <span>Total</span>
+   <span class="cart-total-val" id="cartTotal">₵0</span>
+  </div>
+  <button class="pay-btn" onclick="openCheckout()">Checkout</button>
+ </div>
+</div>
+
+<!-- CHECKOUT OVERLAY -->
+<div class="checkout-overlay" id="checkoutOverlay">
+ <div class="checkout-box">
+
+  <!-- STEP 1: Your Details -->
+  <div class="co-step active" id="coStep1">
+   <div class="co-step-header">
+    <h2>Your Details</h2>
+    <button class="co-close" onclick="closeCheckout()">
+     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+   </div>
+   <div class="co-progress">
+    <div class="co-dot active" id="dot1"></div>
+    <div class="co-dot" id="dot2"></div>
+    <div class="co-dot" id="dot3"></div>
+   </div>
+   <div class="co-field">
+    <label>Full Name</label>
+    <input type="text" class="co-input" id="coName" placeholder="e.g. Abena Mensah">
+   </div>
+   <div class="co-field">
+    <label>Email Address</label>
+    <input type="email" class="co-input" id="coEmail" placeholder="you@example.com">
+   </div>
+   <div class="co-field">
+    <label>Phone Number</label>
+    <input type="tel" class="co-input" id="coPhone" placeholder="+233 XX XXX XXXX">
+   </div>
+   <div class="co-actions">
+    <button class="co-back" onclick="closeCheckout()">Cancel</button>
+    <button class="co-next" onclick="goToStep2()">Review Order →</button>
+   </div>
+  </div>
+
+  <!-- STEP 2: Order Summary -->
+  <div class="co-step" id="coStep2">
+   <div class="co-step-header">
+    <h2>Order Summary</h2>
+    <button class="co-close" onclick="closeCheckout()">
+     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+   </div>
+   <div class="co-progress">
+    <div class="co-dot" id="dot1b"></div>
+    <div class="co-dot active" id="dot2b"></div>
+    <div class="co-dot" id="dot3b"></div>
+   </div>
+   <div class="co-customer-preview" id="coCustomerPreview"></div>
+   <div id="coOrderItems"></div>
+   <div class="co-order-total">
+    <span>Order Total</span>
+    <span class="co-order-total-val" id="coOrderTotal"></span>
+   </div>
+   <div class="co-actions">
+    <button class="co-back" onclick="goToStep1()">← Back</button>
+    <button class="co-next" onclick="goToStep3()">Confirm Order →</button>
+   </div>
+  </div>
+
+  <!-- STEP 3: Payment -->
+  <div class="co-step" id="coStep3">
+   <div class="co-step-header">
+    <h2>Pay Now</h2>
+    <button class="co-close" onclick="closeCheckout()">
+     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+   </div>
+   <div class="co-progress">
+    <div class="co-dot" id="dot1c"></div>
+    <div class="co-dot" id="dot2c"></div>
+    <div class="co-dot active" id="dot3c"></div>
+   </div>
+   <p style="color:#777;font-size:.9rem;margin-bottom:24px">Choose how you'd like to complete your purchase:</p>
+   <div class="co-pay-options">
+    <button class="co-pay-btn paystack" onclick="payWithPaystack()">
+     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+     Pay with Paystack
+    </button>
+    <button class="co-pay-btn whatsapp" onclick="payWithWhatsApp()">
+     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.553 4.103 1.522 5.83L.057 23.27l5.587-1.464A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.817 9.817 0 01-5.003-1.373l-.359-.213-3.718.975.99-3.617-.234-.372A9.817 9.817 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+     Order via WhatsApp
+    </button>
+   </div>
+   <div class="co-actions" style="margin-top:20px">
+    <button class="co-back" onclick="goToStep2()">← Back</button>
+   </div>
+  </div>
+
+ </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+ <div class="grid" style="text-align:left;max-width:1000px;margin:0 auto 40px">
+  <div>
+   <h3>Location</h3>
+   <p>Accra, Ghana</p>
+  </div>
+  <div>
+   <h3>Contact</h3>
+   <p>Email: info@trunaturales.com</p>
+   <p>Phone: +233 542 923 463</p>
+  </div>
+  <div>
+   <h3>Quick Links</h3>
+   <div class="footer-links">
+    <a href="#best-sellers">Shop</a>
+    <a href="#story">Consult</a>
+    <a href="#about">About</a>
+   </div>
+  </div>
+ </div>
+
+ <div class="footer-social">
+  <a href="https://www.instagram.com/trunaturales" target="_blank" rel="noopener" aria-label="Instagram">
+    <i data-feather="instagram"></i>
+  </a>
+  <a href="https://www.tiktok.com/@trunaturales1" target="_blank" rel="noopener" aria-label="TikTok">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M19.589 6.686a4.793 4.793 0 01-3.77-1.885V4h-3.2v12.3a2.9 2.9 0 11-2.9-2.9c.225 0 .444.025.655.072V10.1a6.1 6.1 0 00-.655-.035A6.1 6.1 0 1015.8 16.2V9.57a8.02 8.02 0 004.689 1.496V7.8c-.33.03-.66.045-.9.045z"/>
+    </svg>
+  </a>
+  <a href="https://wa.me/233542923463" target="_blank" rel="noopener" aria-label="Whatsapp">
+    <i data-feather="message-circle"></i>
+  </a>
+</div>
+
+ <p>© 2026 Trunaturales Hair Products</p>
+</footer>
+
+<script>
+feather.replace();
+gsap.registerPlugin(ScrollTrigger);
+
+/* ════════════════════════════════════════════════════════════
+   IMAGE CONFIGURATION
+════════════════════════════════════════════════════════════ */
+
+const SLIDER_IMAGES = [
+  "images/slide1.jpg",
+  "images/slide2.jpg",
+  "images/slide3.jpg",
+  "images/slide4.jpg",
+  "images/slide5.jpg",
+  "images/slide6.jpeg",
+  "images/slide7.jpeg",
+  "images/slide8.jpeg",
+  "images/slide9.jpeg",
+  "images/slide10.jpeg",
+];
+
+// ── BEST SELLERS
+const bestSellers = [
+  { name:"Super Hair Revival Tonic",                     price:70,  oldPrice:80, img:"images/oil1.jpeg", link:"product.html?id=super-hair-revival-tonic"         },
+  { name:"Hair Growth Serum",                            price:50,  oldPrice:55, img:"images/oil2.jpeg", link:"product.html?id=hair-growth-serum"      },
+  { name:"Intensive Repair Deep Conditioning Hair Mask", price:80,  oldPrice:95, img:"images/deep.jpeg", link:"product.html?id=deep-conditioning-mask" },
+  { name:"Anti Dandruff Elixir",                         price:65,  oldPrice:70, img:"images/oil3.jpeg", link:"product.html?id=anti-dandruff-elixir"   },
+  { name:"Intense Moisture Clarifying Shampoo",          price:60,  oldPrice:null, img:"images/shampoo1.jpeg", link:"product.html?id=shampooGrid" },
+];
+
+// ── COMBOS
+const combos = [
+  { name:"Mega Growth Set",            price:300, oldPrice:310, img:"images/mega.jpeg",     link:"product.html?id=mega-growth-set"           },
+  { name:"Regular Growth Set",         price:200, oldPrice:210, img:"images/regularg.jpeg", link:"product.html?id=regular-growth-set"        },
+  { name:"Mega Anti-Dandruff Set",     price:300, oldPrice:315, img:"images/slide9.jpeg",   link:"product.html?id=mega-anti-dandruff-set"    },
+  { name:"Regular Anti-Dandruff Set",  price:220, oldPrice:235, img:"images/regulard.jpeg", link:"product.html?id=regular-anti-dandruff-set" },
+];
+
+/* ════════════════════════════════════════════════════════════
+   PAYMENT CONFIGURATION
+════════════════════════════════════════════════════════════ */
+const PAYSTACK_PUBLIC_KEY = 'pk_live_6e372480afdca60302d97ac83e7d2d1c8900c425';
+const WHATSAPP_NUMBER = '233542923463';
+
+
+/* ════════════════════════════════════════════════════════════
+   HERO SLIDESHOW
+════════════════════════════════════════════════════════════ */
+const hero = document.getElementById('hero');
+SLIDER_IMAGES.forEach((src, i) => {
+  let d = document.createElement('div');
+  d.className = 'slide';
+  if (i === 0) d.classList.add('active');
+  d.style.backgroundImage = `url("${src}")`;
+  hero.appendChild(d);
+});
+let slideIdx = 0;
+const slides = () => document.querySelectorAll('.slide');
+setInterval(() => {
+  const sl = slides();
+  sl[slideIdx].classList.remove('active');
+  slideIdx = (slideIdx + 1) % sl.length;
+  sl[slideIdx].classList.add('active');
+}, 3500);
+
+
+/* ════════════════════════════════════════════════════════════
+   RENDER PRODUCT CARDS
+════════════════════════════════════════════════════════════ */
+function render(data, id) {
+  const g = document.getElementById(id);
+  data.forEach(p => {
+    const priceHTML = p.oldPrice
+      ? `<span class="price-original">GHS ${p.oldPrice}</span><span class="price-final">GHS ${p.price}</span>`
+      : `<span class="price-final">GHS ${p.price}</span>`;
+    const div = document.createElement('div');
+    div.className = 'card';
+    div.innerHTML = `
+      <img src="${p.img}" alt="${p.name}">
+      <div class="card-overlay">
+        <a class="card-btn view" href="${p.link}">View</a>
+        <button class="card-btn add" onclick='add(${JSON.stringify(p)})'>Add to Cart</button>
+      </div>
+      <div style="padding:15px"><h3>${p.name}</h3><p style="margin-top:6px">${priceHTML}</p></div>`;
+    g.appendChild(div);
+  });
+}
+render(bestSellers, 'bestGrid');
+render(combos, 'comboGrid');
+
+
+/* ════════════════════════════════════════════════════════════
+   GSAP ANIMATIONS
+════════════════════════════════════════════════════════════ */
+gsap.to('.story-text', {
+  scrollTrigger: { trigger: '.story-text', start: 'top 85%' },
+  opacity: 1, y: 0, duration: 1.2
+});
+gsap.to('.story-img', {
+  scrollTrigger: { trigger: '.story-img', start: 'top 85%' },
+  opacity: 1, y: 0, duration: 1.5, delay: .2
+});
+gsap.utils.toArray('.card').forEach((card, i) => {
+  gsap.to(card, {
+    scrollTrigger: { trigger: card, start: 'top 85%' },
+    y: 0, opacity: 1, duration: 1, delay: i * 0.1, ease: 'power3.out'
+  });
+});
+gsap.from('.section-title', {
+  scrollTrigger: { trigger: '.section-title', start: 'top 90%' },
+  y: 60, opacity: 0, duration: 1.2, ease: 'power4.out'
+});
+
+
+/* ════════════════════════════════════════════════════════════
+   CART STATE
+════════════════════════════════════════════════════════════ */
+let cart = [];
+try {
+  const saved = localStorage.getItem('elan_cart');
+  if (saved) cart = JSON.parse(saved);
+} catch(e) {}
+
+function saveCart() {
+  try { localStorage.setItem('elan_cart', JSON.stringify(cart)); } catch(e) {}
+}
+
+function updateBadge() {
+  const badge = document.getElementById('cartBadge');
+  const total = cart.reduce((s, i) => s + i.qty, 0);
+  if (total > 0) {
+    badge.style.display = 'flex';
+    badge.textContent = total;
+    badge.classList.remove('pop');
+    void badge.offsetWidth;
+    badge.classList.add('pop');
+  } else {
+    badge.style.display = 'none';
+  }
+}
+
+function add(p) {
+  const item = cart.find(i => i.name === p.name);
+  if (item) item.qty++;
+  else cart.push({ ...p, qty: 1 });
+  saveCart();
+  updateBadge();
+  renderCart();
+}
+
+function rem(n) {
+  cart = cart.filter(i => i.name !== n);
+  saveCart();
+  updateBadge();
+  renderCart();
+}
+
+function changeQty(n, val) {
+  const item = cart.find(i => i.name === n);
+  if (!item) return;
+  item.qty += val;
+  if (item.qty <= 0) cart = cart.filter(i => i.name !== n);
+  saveCart();
+  updateBadge();
+  renderCart();
+}
+
+function renderCart() {
+  const items = document.getElementById('cartItems');
+  const totalEl = document.getElementById('cartTotal');
+  let t = 0;
+
+  if (cart.length === 0) {
+    items.innerHTML = `
+      <div class="cart-empty">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <p>Your cart is empty</p>
+      </div>`;
+    totalEl.textContent = '₵0';
+    return;
+  }
+
+  items.innerHTML = '';
+  cart.forEach(i => {
+    t += i.price * i.qty;
+    items.innerHTML += `
+      <div class="cart-item">
+        <img class="cart-item-img" src="${i.img}" alt="${i.name}">
+        <div class="cart-item-info">
+          <div class="cart-item-name">${i.name}</div>
+          <div class="cart-item-price">₵${i.price * i.qty}</div>
+          <div class="qty-control">
+            <button class="qty-btn" onclick="changeQty('${i.name}',-1)">−</button>
+            <span class="qty-num">${i.qty}</span>
+            <button class="qty-btn" onclick="changeQty('${i.name}',1)">+</button>
+          </div>
+        </div>
+        <button class="cart-item-remove" onclick="rem('${i.name}')" title="Remove">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+        </button>
+      </div>`;
+  });
+
+  totalEl.textContent = `₵${t}`;
+}
+
+function toggleCart() {
+  const c = document.getElementById('cart');
+  const o = document.getElementById('cartOverlay');
+  c.classList.toggle('active');
+  o.classList.toggle('active');
+  if (c.classList.contains('active')) renderCart();
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   CHECKOUT — 3-STEP FLOW
+════════════════════════════════════════════════════════════ */
+let _coName = '', _coEmail = '', _coPhone = '';
+
+function openCheckout() {
+  if (cart.length === 0) return;
+  showStep(1);
+  document.getElementById('coName').value = '';
+  document.getElementById('coEmail').value = '';
+  document.getElementById('coPhone').value = '';
+  document.getElementById('checkoutOverlay').classList.add('open');
+}
+
+function closeCheckout() {
+  document.getElementById('checkoutOverlay').classList.remove('open');
+}
+
+function showStep(n) {
+  [1, 2, 3].forEach(s => {
+    document.getElementById('coStep' + s).classList.toggle('active', s === n);
+  });
+}
+
+function goToStep2() {
+  const name  = document.getElementById('coName').value.trim();
+  const email = document.getElementById('coEmail').value.trim();
+  const phone = document.getElementById('coPhone').value.trim();
+
+  if (!name)  { alert('Please enter your full name.'); return; }
+  if (!email || !/\S+@\S+\.\S+/.test(email)) { alert('Please enter a valid email address.'); return; }
+  if (!phone) { alert('Please enter your phone number.'); return; }
+
+  _coName  = name;
+  _coEmail = email;
+  _coPhone = phone;
+
+  document.getElementById('coCustomerPreview').innerHTML =
+    `<strong>${name}</strong><br>${email} &nbsp;·&nbsp; ${phone}`;
+
+  const orderItemsEl = document.getElementById('coOrderItems');
+  orderItemsEl.innerHTML = '';
+  let total = 0;
+  cart.forEach(i => {
+    total += i.price * i.qty;
+    orderItemsEl.innerHTML += `
+      <div class="co-order-item">
+        <img src="${i.img}" alt="${i.name}">
+        <div style="flex:1">
+          <div class="co-order-item-name">${i.name}</div>
+          <div class="co-order-item-sub">Qty: ${i.qty} &nbsp;×&nbsp; ₵${i.price}</div>
+        </div>
+        <div style="font-weight:700;color:var(--green)">₵${i.price * i.qty}</div>
+      </div>`;
+  });
+  document.getElementById('coOrderTotal').textContent = `₵${total}`;
+
+  showStep(2);
+}
+
+function goToStep1() { showStep(1); }
+function goToStep3() { showStep(3); }
+
+
+/* ════════════════════════════════════════════════════════════
+   PAY WITH PAYSTACK
+════════════════════════════════════════════════════════════ */
+function payWithPaystack() {
+  const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+
+  const handler = PaystackPop.setup({
+    key: PAYSTACK_PUBLIC_KEY,
+    email: _coEmail,
+    amount: total * 100,
+    currency: 'GHS',
+    ref: 'ELAN_' + Date.now(),
+    metadata: {
+      custom_fields: [
+        { display_name:"Customer Name",  variable_name:"name",  value: _coName  },
+        { display_name:"Phone",          variable_name:"phone", value: _coPhone },
+        { display_name:"Cart",           variable_name:"cart",  value: cart.map(i => `${i.name} x${i.qty}`).join(', ') }
+      ]
+    },
+    callback: function(response) {
+      cart = [];
+      saveCart();
+      updateBadge();
+      renderCart();
+      closeCheckout();
+      alert('✅ Payment successful! Reference: ' + response.reference);
+    },
+    onClose: function() {}
+  });
+  handler.openIframe();
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   ORDER VIA WHATSAPP
+════════════════════════════════════════════════════════════ */
+function payWithWhatsApp() {
+  const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  const itemLines = cart.map(i => `• ${i.name} x${i.qty} — ₵${i.price * i.qty}`).join('\n');
+  const msg = `Hello Trunaturales! 👋\n\nI'd like to place an order:\n\n${itemLines}\n\n*Total: ₵${total}*\n\n---\nName: ${_coName}\nEmail: ${_coEmail}\nPhone: ${_coPhone}`;
+  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+  window.open(url, '_blank');
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   MAGNETIC BUTTONS
+════════════════════════════════════════════════════════════ */
+document.querySelectorAll('.btn,.pay-btn').forEach(btn => {
+  btn.addEventListener('mousemove', (e) => {
+    const rect = btn.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    btn.style.transform = `translate(${x * 0.2}px,${y * 0.2}px) scale(1.05)`;
+  });
+  btn.addEventListener('mouseleave', () => {
+    btn.style.transform = 'translate(0,0) scale(1)';
+  });
+});
+
+
+/* ════════════════════════════════════════════════════════════
+   INIT
+════════════════════════════════════════════════════════════ */
+updateBadge();
+</script>
+
+</body>
+</html>

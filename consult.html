@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Consult — Trunaturales Hair</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/feather-icons"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<style>
+:root{
+  --cream:#fffdf8;
+  --accent:#e8f5c8;
+  --green:#4CAF50;
+  --mid-green:#6abf69;
+  --deep-green:#1b5e20;
+  --gradient:linear-gradient(135deg,#4CAF50,#8BC34A);
+  --dark:#1a1a1a;
+  --muted:#666;
+  --border:rgba(0,0,0,0.08);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:Poppins,sans-serif;background:var(--cream);color:var(--dark);overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Playfair Display',serif}
+
+/* ─── NAVBAR ─────────────────────────────── */
+.navbar{
+  position:fixed;width:100%;top:0;height:70px;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:0 8%;
+  background:rgba(255,253,248,0.82);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(76,175,80,0.10);
+  z-index:999;
+}
+.logo{width:56px;border-radius:8px}
+.nav-links{display:flex;gap:36px}
+.nav-links a{
+  position:relative;text-decoration:none;
+  color:var(--dark);font-weight:500;font-size:.95rem;padding-bottom:4px;
+}
+.nav-links a::after{
+  content:"";position:absolute;left:0;bottom:0;
+  width:100%;height:2px;background:var(--green);
+  transform:scaleX(0);transform-origin:left;transition:transform .3s ease;
+}
+.nav-links a:hover::after,
+.nav-links a.active-link::after{transform:scaleX(1)}
+.icons{display:flex;gap:18px;align-items:center}
+.cart-wrapper{position:relative;cursor:pointer;display:flex;align-items:center}
+.cart-badge{
+  position:absolute;top:-8px;right:-8px;
+  background:var(--green);color:white;
+  font-size:10px;font-weight:700;font-family:Poppins;
+  width:18px;height:18px;border-radius:50%;
+  align-items:center;justify-content:center;display:none;
+  box-shadow:0 2px 8px rgba(76,175,80,.5);
+}
+.cart-badge.pop{animation:badgePop .3s ease}
+@keyframes badgePop{0%{transform:scale(1)}50%{transform:scale(1.6)}100%{transform:scale(1)}}
+.hamburger{display:none;cursor:pointer}
+
+/* ─── PAGE HERO ──────────────────────────── */
+.page-hero{
+  margin-top:70px;
+  min-height:300px;
+  background:linear-gradient(135deg,#e8f5c8 0%,#c8e6c9 55%,#a5d6a7 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:60px 8% 50px;
+  position:relative;overflow:hidden;
+}
+.page-hero::before{
+  content:"";position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234CAF50' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.hero-leaf{position:absolute;font-size:9rem;opacity:.07;color:var(--deep-green);user-select:none}
+.hero-leaf.l1{top:-10px;left:3%}
+.hero-leaf.l2{bottom:-30px;right:5%;font-size:13rem}
+.page-hero-inner{position:relative;z-index:1;max-width:620px}
+.page-hero-inner .hero-tag{
+  display:inline-block;background:rgba(27,94,32,.12);
+  color:var(--deep-green);font-size:.72rem;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;
+  padding:6px 16px;border-radius:30px;margin-bottom:18px;
+}
+.page-hero-inner h1{
+  font-size:clamp(2.2rem,5vw,3.6rem);
+  color:var(--deep-green);line-height:1.15;margin-bottom:18px;
+}
+.page-hero-inner h1 em{font-style:italic;color:var(--green)}
+.page-hero-inner p{
+  font-size:1rem;color:#2e7d32;line-height:1.8;
+  font-weight:400;
+}
+
+/* ─── MAIN LAYOUT ────────────────────────── */
+.consult-wrap{
+  max-width:1080px;margin:0 auto;
+  padding:80px 6% 100px;
+  display:grid;
+  grid-template-columns:1fr 400px;
+  gap:60px;
+  align-items:start;
+}
+
+/* ─── FORM CARD ──────────────────────────── */
+.form-card{
+  background:white;
+  border-radius:28px;
+  padding:48px 44px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.07);
+  opacity:0;transform:translateY(40px);
+}
+.form-card h2{
+  font-size:1.7rem;margin-bottom:6px;color:var(--dark);
+}
+.form-card .form-sub{
+  font-size:.88rem;color:var(--muted);margin-bottom:36px;line-height:1.7;
+}
+
+/* Field groups */
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.field{margin-bottom:22px}
+.field label{
+  display:block;font-size:.78rem;font-weight:600;
+  color:#555;margin-bottom:8px;
+  letter-spacing:.6px;text-transform:uppercase;
+}
+.field input,
+.field select,
+.field textarea{
+  width:100%;padding:14px 18px;
+  border:2px solid #eee;border-radius:14px;
+  font-family:Poppins;font-size:.93rem;color:var(--dark);
+  outline:none;transition:.25s;
+  background:white;
+  appearance:none;-webkit-appearance:none;
+}
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
+  border-color:var(--green);background:#fafff6;
+  box-shadow:0 0 0 4px rgba(76,175,80,.08);
+}
+.field input::placeholder,
+.field textarea::placeholder{color:#bbb}
+.field textarea{resize:vertical;min-height:130px;line-height:1.6}
+
+/* Select arrow */
+.select-wrap{position:relative}
+.select-wrap::after{
+  content:"";position:absolute;right:18px;top:50%;transform:translateY(-50%);
+  width:0;height:0;
+  border-left:5px solid transparent;
+  border-right:5px solid transparent;
+  border-top:6px solid var(--muted);
+  pointer-events:none;
+}
+
+/* Time slots */
+.slots-label{
+  font-size:.78rem;font-weight:600;color:#555;
+  letter-spacing:.6px;text-transform:uppercase;
+  margin-bottom:12px;display:block;
+}
+.slots-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;margin-bottom:22px;
+}
+.slot{
+  border:2px solid #eee;border-radius:12px;
+  padding:11px 8px;text-align:center;
+  cursor:pointer;transition:.22s;
+  font-size:.8rem;font-weight:600;color:var(--muted);
+  user-select:none;background:white;
+  line-height:1.3;
+}
+.slot:hover{border-color:var(--mid-green);color:var(--deep-green);background:#f6fff4}
+.slot.selected{
+  border-color:var(--green);
+  background:var(--accent);
+  color:var(--deep-green);
+  box-shadow:0 4px 14px rgba(76,175,80,.18);
+}
+.slot .slot-time{font-size:.85rem;font-weight:700;display:block}
+.slot .slot-period{font-size:.7rem;font-weight:500;color:inherit;opacity:.75}
+
+/* Hair type checkboxes */
+.hair-types{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.hair-chip{
+  border:2px solid #eee;border-radius:30px;
+  padding:8px 16px;font-size:.78rem;font-weight:600;
+  color:var(--muted);cursor:pointer;transition:.22s;
+  user-select:none;
+}
+.hair-chip:hover{border-color:var(--mid-green);color:var(--deep-green)}
+.hair-chip.selected{
+  border-color:var(--green);background:var(--accent);color:var(--deep-green);
+}
+
+/* Submit */
+.submit-btn{
+  width:100%;padding:17px;border:none;border-radius:30px;
+  background:var(--gradient);color:white;
+  font-family:Poppins;font-size:1rem;font-weight:600;
+  cursor:pointer;transition:.3s;letter-spacing:.4px;
+  box-shadow:0 8px 24px rgba(76,175,80,.3);
+  margin-top:6px;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+}
+.submit-btn:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(76,175,80,.4)}
+.submit-btn:active{transform:translateY(0)}
+
+/* Success state */
+.success-msg{
+  display:none;
+  text-align:center;padding:50px 20px;
+}
+.success-msg .check-circle{
+  width:72px;height:72px;border-radius:50%;
+  background:var(--accent);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 22px;
+}
+.success-msg h3{font-size:1.5rem;margin-bottom:10px;color:var(--deep-green)}
+.success-msg p{color:var(--muted);font-size:.92rem;line-height:1.7}
+
+/* ─── SIDEBAR ────────────────────────────── */
+.sidebar{display:flex;flex-direction:column;gap:28px}
+
+/* Info card */
+.info-card{
+  background:white;border-radius:24px;
+  padding:32px 30px;
+  box-shadow:0 12px 40px rgba(0,0,0,0.06);
+  opacity:0;transform:translateY(40px);
+}
+.info-card h3{font-size:1.25rem;margin-bottom:8px;color:var(--dark)}
+.info-card p{font-size:.86rem;color:var(--muted);line-height:1.75;margin-bottom:20px}
+
+/* Reach us buttons */
+.reach-btn{
+  display:flex;align-items:center;gap:14px;
+  width:100%;padding:15px 20px;
+  border:none;border-radius:16px;
+  font-family:Poppins;font-size:.88rem;font-weight:600;
+  cursor:pointer;transition:.28s;
+  text-decoration:none;margin-bottom:12px;
+  letter-spacing:.2px;
+}
+.reach-btn:last-child{margin-bottom:0}
+.reach-btn .reach-icon{
+  width:40px;height:40px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.reach-btn .reach-text{display:flex;flex-direction:column;text-align:left}
+.reach-btn .reach-label{font-size:.7rem;font-weight:600;letter-spacing:.8px;text-transform:uppercase;opacity:.7;margin-bottom:1px}
+.reach-btn .reach-val{font-size:.9rem;font-weight:700}
+
+.reach-btn.call{
+  background:#f0fff4;color:#1b5e20;border:2px solid #c8e6c9;
+}
+.reach-btn.call:hover{background:#e8f5c8;transform:translateX(5px);border-color:var(--green)}
+.reach-btn.call .reach-icon{background:var(--accent);color:var(--deep-green)}
+
+.reach-btn.email{
+  background:#fff8f0;color:#5d3a00;border:2px solid #ffe0b2;
+}
+.reach-btn.email:hover{background:#fff3e0;transform:translateX(5px);border-color:#ffb74d}
+.reach-btn.email .reach-icon{background:#fff3e0;color:#e65100}
+
+.reach-btn.whatsapp{
+  background:#f0fff6;color:#1a5c30;border:2px solid #b2dfdb;
+}
+.reach-btn.whatsapp:hover{background:#e0f7ef;transform:translateX(5px);border-color:#25D366}
+.reach-btn.whatsapp .reach-icon{background:#e0f2f1;color:#25D366}
+
+/* Hours card */
+.hours-card{
+  background:var(--deep-green);color:white;
+  border-radius:24px;padding:28px 28px;
+  opacity:0;transform:translateY(40px);
+}
+.hours-card h3{font-size:1.1rem;margin-bottom:16px;color:rgba(255,255,255,.9)}
+.hours-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:9px 0;
+  border-bottom:1px solid rgba(255,255,255,.1);
+  font-size:.85rem;
+}
+.hours-row:last-child{border-bottom:none}
+.hours-row .day{color:rgba(255,255,255,.7);font-weight:400}
+.hours-row .time{color:white;font-weight:600}
+.hours-row .time.closed{color:rgba(255,255,255,.4);font-weight:400;font-style:italic}
+.hours-note{
+  margin-top:16px;font-size:.78rem;
+  color:rgba(255,255,255,.55);line-height:1.6;
+}
+
+/* ─── FLOATING WHATSAPP ──────────────────── */
+.wa-float{
+  position:fixed;bottom:32px;right:32px;
+  width:58px;height:58px;border-radius:50%;
+  background:#25D366;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 30px rgba(37,211,102,.5);
+  z-index:990;text-decoration:none;transition:.3s;
+  animation:waPulse 2.5s ease-in-out infinite;
+}
+.wa-float:hover{transform:scale(1.12)}
+@keyframes waPulse{
+  0%,100%{box-shadow:0 8px 30px rgba(37,211,102,.5)}
+  50%{box-shadow:0 8px 50px rgba(37,211,102,.75),0 0 0 12px rgba(37,211,102,.1)}
+}
+
+/* ─── CART DRAWER ────────────────────────── */
+.cart{
+  position:fixed;right:-480px;top:0;width:420px;height:100%;
+  background:var(--cream);box-shadow:-4px 0 60px rgba(0,0,0,.18);
+  transition:.42s cubic-bezier(.4,0,.2,1);z-index:1000;
+  display:flex;flex-direction:column;
+}
+.cart.active{right:0}
+.cart-header{display:flex;justify-content:space-between;align-items:center;padding:28px 28px 20px;border-bottom:1px solid var(--border)}
+.cart-header h2{font-family:'Playfair Display';font-size:1.6rem}
+.cart-close-btn{background:#f0f0f0;border:none;cursor:pointer;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:.2s}
+.cart-close-btn:hover{background:#e0e0e0;transform:rotate(90deg)}
+.cart-body{flex:1;overflow-y:auto;padding:20px 28px;scrollbar-width:thin;scrollbar-color:var(--green) transparent}
+.cart-item{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--border)}
+.cart-item-img{width:64px;height:64px;border-radius:14px;object-fit:cover;flex-shrink:0}
+.cart-item-info{flex:1}
+.cart-item-name{font-weight:600;font-size:.92rem;margin-bottom:4px}
+.cart-item-price{color:var(--green);font-weight:700;font-size:.9rem}
+.qty-control{display:flex;align-items:center;gap:6px;margin-top:6px}
+.qty-btn{width:26px;height:26px;border:none;border-radius:50%;background:var(--accent);color:var(--deep-green);font-size:1rem;font-weight:700;cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center}
+.qty-btn:hover{background:var(--green);color:white}
+.qty-num{font-weight:600;font-size:.9rem;min-width:18px;text-align:center}
+.cart-item-remove{background:none;border:none;cursor:pointer;color:#ccc;transition:.2s;flex-shrink:0;padding:4px}
+.cart-item-remove:hover{color:#e53935}
+.cart-empty{text-align:center;padding:60px 0;color:#aaa;font-size:.95rem}
+.cart-empty svg{margin-bottom:16px;opacity:.3}
+.cart-footer{padding:20px 28px 28px;border-top:1px solid var(--border);background:white}
+.cart-summary{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.cart-summary span{font-size:.9rem;color:#666}
+.cart-total-val{font-family:'Playfair Display';font-size:1.5rem;font-weight:700}
+.pay-btn{width:100%;padding:16px;border:none;border-radius:30px;background:var(--gradient);color:white;font-family:Poppins;font-size:1rem;font-weight:600;cursor:pointer;transition:.3s;box-shadow:0 8px 24px rgba(76,175,80,.35)}
+.pay-btn:hover{transform:translateY(-3px)}
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:999;opacity:0;pointer-events:none;transition:.4s;backdrop-filter:blur(2px)}
+.cart-overlay.active{opacity:1;pointer-events:all}
+
+/* ─── FOOTER ─────────────────────────────── */
+footer{background:var(--deep-green);color:white;padding:80px 8%;text-align:center}
+.footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:40px;text-align:left;max-width:1000px;margin:0 auto 50px}
+.footer-grid h3{font-family:'Playfair Display';margin-bottom:14px;font-size:1.1rem}
+.footer-grid p,.footer-grid a{color:rgba(255,255,255,.8);font-size:.9rem;line-height:1.9;text-decoration:none;display:block;transition:.2s}
+.footer-grid a:hover{color:white;padding-left:5px}
+.footer-social{display:flex;gap:16px;justify-content:center;margin:0 0 20px}
+.footer-social a{color:white;display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.12);transition:.25s}
+.footer-social a:hover{background:rgba(255,255,255,.28);transform:translateY(-3px)}
+footer p.copy{color:rgba(255,255,255,.5);font-size:.85rem}
+
+/* ─── RESPONSIVE ─────────────────────────── */
+@media(max-width:900px){
+  .consult-wrap{grid-template-columns:1fr;gap:40px}
+  .sidebar{order:-1}
+  .sidebar .info-card,.sidebar .hours-card{opacity:1;transform:none}
+}
+@media(max-width:640px){
+  .navbar{padding:0 5%}
+  .nav-links{
+    position:fixed;top:70px;right:-100%;
+    width:78%;height:calc(100vh - 70px);
+    background:rgba(255,253,248,.97);backdrop-filter:blur(14px);
+    flex-direction:column;align-items:flex-start;
+    padding:46px 28px;gap:24px;
+    transition:right .45s cubic-bezier(.4,0,.2,1);
+    box-shadow:-20px 0 60px rgba(0,0,0,.12);z-index:1000;
+  }
+  .nav-links.active{right:0}
+  .hamburger{display:block}
+  .nav-links a{font-size:1.15rem;font-weight:600;padding:12px 16px;border-radius:12px;opacity:0;transform:translateX(30px);position:relative;overflow:hidden}
+  .nav-links.active a{animation:navFade .5s forwards}
+  .nav-links.active a:nth-child(1){animation-delay:.1s}
+  .nav-links.active a:nth-child(2){animation-delay:.2s}
+  .nav-links.active a:nth-child(3){animation-delay:.3s}
+  @keyframes navFade{to{opacity:1;transform:translateX(0)}}
+  .nav-links a::before{content:"";position:absolute;inset:0;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .35s ease;z-index:-1;border-radius:12px}
+  .nav-links a:hover::before{transform:scaleX(1)}
+
+  .consult-wrap{padding:40px 5% 70px}
+  .form-card{padding:30px 22px}
+  .field-row{grid-template-columns:1fr}
+  .slots-grid{grid-template-columns:repeat(2,1fr)}
+  .cart{width:100%;right:-100%}
+  .wa-float{bottom:22px;right:18px;width:52px;height:52px}
+  .page-hero{min-height:240px;padding:50px 6% 40px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+  <img src="images/logo.jpeg" class="logo" alt="Trunaturales">
+  <div class="nav-links" id="navLinks">
+    <a href="index.html">Home</a>
+    <a href="product.html">Products</a>
+    <a href="consult.html" class="active-link">Consult</a>
+  </div>
+  <div class="icons">
+    <div class="cart-wrapper" onclick="toggleCart()">
+      <i data-feather="shopping-cart"></i>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </div>
+    <i data-feather="menu" class="hamburger"
+       onclick="document.getElementById('navLinks').classList.toggle('active')"></i>
+  </div>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <span class="hero-leaf l1">🌿</span>
+  <span class="hero-leaf l2">🌱</span>
+  <div class="page-hero-inner">
+    <div class="hero-tag">Free Consultation</div>
+    <h1>Consult <em>With Us</em></h1>
+    <p>
+      Every hair journey is unique. Share your story with us and our hair care specialists
+      will craft a personalised routine rooted in Ayurvedic wisdom — just for you.
+    </p>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="consult-wrap">
+
+  <!-- ── FORM ── -->
+  <div class="form-card" id="formCard">
+    <h2>Book Your Session</h2>
+    <p class="form-sub">Fill in your details below and we'll get back to you within 24 hours to confirm your slot.</p>
+
+    <div id="theForm">
+
+      <!-- Name row -->
+      <div class="field-row">
+        <div class="field">
+          <label>First Name</label>
+          <input type="text" id="fName" placeholder="Abena">
+        </div>
+        <div class="field">
+          <label>Last Name</label>
+          <input type="text" id="lName" placeholder="Mensah">
+        </div>
+      </div>
+
+      <!-- Contact row -->
+      <div class="field-row">
+        <div class="field">
+          <label>Email Address</label>
+          <input type="email" id="fEmail" placeholder="you@example.com">
+        </div>
+        <div class="field">
+          <label>Phone Number</label>
+          <input type="tel" id="fPhone" placeholder="+233 XX XXX XXXX">
+        </div>
+      </div>
+
+      <!-- Hair type -->
+      <div class="field">
+        <label>Hair Type <span style="font-weight:400;text-transform:none;letter-spacing:0;color:#aaa">(select all that apply)</span></label>
+        <div class="hair-types" id="hairTypes">
+          <div class="hair-chip" onclick="toggleChip(this)">Natural / Coily</div>
+          <div class="hair-chip" onclick="toggleChip(this)">Relaxed</div>
+          <div class="hair-chip" onclick="toggleChip(this)">Wavy</div>
+          <div class="hair-chip" onclick="toggleChip(this)">Straight</div>
+          <div class="hair-chip" onclick="toggleChip(this)">Colour-Treated</div>
+          <div class="hair-chip" onclick="toggleChip(this)">Low Porosity</div>
+          <div class="hair-chip" onclick="toggleChip(this)">High Porosity</div>
+          <div class="hair-chip" onclick="toggleChip(this)">Fine / Thin</div>
+          <div class="hair-chip" onclick="toggleChip(this)">Thick / Dense</div>
+        </div>
+      </div>
+
+      <!-- Consultation type -->
+      <div class="field">
+        <label>Consultation Type</label>
+        <div class="select-wrap">
+          <select id="consultType">
+            <option value="" disabled selected>— Choose a type —</option>
+            <option>Hair Growth & Retention</option>
+            <option>Scalp Health & Dandruff</option>
+            <option>Moisture & Hydration</option>
+            <option>Breakage & Damage Repair</option>
+            <option>Product Recommendation</option>
+            <option>Full Haircare Routine Build</option>
+            <option>Other / General Advice</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Available time slots -->
+      <div class="field">
+        <span class="slots-label">Choose a Preferred Time Slot</span>
+        <div class="slots-grid" id="slotsGrid">
+          <div class="slot" onclick="selectSlot(this)"><span class="slot-time">10:00 AM</span><span class="slot-period">Morning</span></div>
+          <div class="slot" onclick="selectSlot(this)"><span class="slot-time">2:00 PM</span><span class="slot-period">Afternoon</span></div>
+          <div class="slot" onclick="selectSlot(this)"><span class="slot-time">4:00 PM</span><span class="slot-period">Afternoon</span></div>
+          <div class="slot" onclick="selectSlot(this)"><span class="slot-time">6:00 PM</span><span class="slot-period">Evening</span></div>
+        </div>
+      </div>
+
+      <!-- Hair concern -->
+      <div class="field">
+        <label>Describe Your Hair Concern or Goal</label>
+        <textarea id="fConcern" placeholder="Tell us about your hair — what you're struggling with, what you'd love to achieve, any products you've tried, or anything else that feels relevant…"></textarea>
+      </div>
+
+      <button class="submit-btn" onclick="submitForm()">
+        <i data-feather="send" style="width:18px;height:18px"></i>
+        Book My Consultation
+      </button>
+
+    </div><!-- /theForm -->
+
+    <!-- Success message -->
+    <div class="success-msg" id="successMsg">
+      <div class="check-circle">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h3>You're Booked! 🌿</h3>
+      <p>Thank you — we've received your consultation request.<br>A specialist will reach out within <strong>24 hours</strong> to confirm your time slot.</p>
+    </div>
+
+  </div><!-- /form-card -->
+
+  <!-- ── SIDEBAR ── -->
+  <div class="sidebar">
+
+    <!-- Reach us -->
+    <div class="info-card" id="reachCard">
+      <h3>Reach Us Directly</h3>
+      <p>Prefer to connect right away? Pick your favourite channel — we're always happy to hear from you.</p>
+
+      <a href="tel:+233542923463" class="reach-btn call">
+        <div class="reach-icon">
+          <i data-feather="phone" style="width:18px;height:18px"></i>
+        </div>
+        <div class="reach-text">
+          <span class="reach-label">Call Us</span>
+          <span class="reach-val">+233 542 923 463</span>
+        </div>
+      </a>
+
+      <a href="mailto:info@trunaturales.com" class="reach-btn email">
+        <div class="reach-icon">
+          <i data-feather="mail" style="width:18px;height:18px"></i>
+        </div>
+        <div class="reach-text">
+          <span class="reach-label">Email Us</span>
+          <span class="reach-val">info@trunaturales.com</span>
+        </div>
+      </a>
+
+      <a href="https://wa.me/233542923463?text=Hi%20Trunaturales%2C%20I%27d%20like%20to%20book%20a%20consultation!" target="_blank" rel="noopener" class="reach-btn whatsapp">
+        <div class="reach-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.553 4.103 1.522 5.83L.057 23.27l5.587-1.464A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.817 9.817 0 01-5.003-1.373l-.359-.213-3.718.975.99-3.617-.234-.372A9.817 9.817 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+        </div>
+        <div class="reach-text">
+          <span class="reach-label">WhatsApp</span>
+          <span class="reach-val">Chat With Us</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- Consultation hours -->
+    <div class="hours-card" id="hoursCard">
+      <h3>Consultation Hours</h3>
+      <div class="hours-row"><span class="day">Monday – Friday</span><span class="time">10 AM – 6 PM</span></div>
+      <div class="hours-row"><span class="day">Saturday</span><span class="time">10 AM – 4 PM</span></div>
+      <div class="hours-row"><span class="day">Sunday</span><span class="time closed">Closed</span></div>
+      <p class="hours-note">All times are Ghana Standard Time (GMT+0). Sessions last approximately 20–30 minutes. You'll receive a confirmation message once your slot is approved.</p>
+    </div>
+
+  </div><!-- /sidebar -->
+
+</div><!-- /consult-wrap -->
+
+<!-- FLOATING WHATSAPP -->
+<a class="wa-float" href="https://wa.me/233542923463" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+    <path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.553 4.103 1.522 5.83L.057 23.27l5.587-1.464A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.817 9.817 0 01-5.003-1.373l-.359-.213-3.718.975.99-3.617-.234-.372A9.817 9.817 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/>
+  </svg>
+</a>
+
+<!-- CART OVERLAY + DRAWER -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<div class="cart" id="cart">
+  <div class="cart-header">
+    <h2>Your Cart</h2>
+    <button class="cart-close-btn" onclick="toggleCart()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="cart-body" id="cartItems"></div>
+  <div class="cart-footer">
+    <div class="cart-summary">
+      <span>Total</span>
+      <span class="cart-total-val" id="cartTotal">₵0</span>
+    </div>
+    <button class="pay-btn" onclick="window.location.href='products.html'">Shop Products</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <h3>Location</h3>
+      <p>Accra, Ghana</p>
+    </div>
+    <div>
+      <h3>Contact</h3>
+      <p>info@trunaturales.com</p>
+      <p>+233 542 923 463</p>
+    </div>
+    <div>
+      <h3>Quick Links</h3>
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="consult.html">Consult</a>
+    </div>
+  </div>
+  <div class="footer-social">
+    <a href="https://www.instagram.com/trunaturales" target="_blank" rel="noopener" aria-label="Instagram">
+      <i data-feather="instagram"></i>
+    </a>
+    <a href="https://www.tiktok.com/@trunaturales1" target="_blank" rel="noopener" aria-label="TikTok">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M19.589 6.686a4.793 4.793 0 01-3.77-1.885V4h-3.2v12.3a2.9 2.9 0 11-2.9-2.9c.225 0 .444.025.655.072V10.1a6.1 6.1 0 00-.655-.035A6.1 6.1 0 1015.8 16.2V9.57a8.02 8.02 0 004.689 1.496V7.8c-.33.03-.66.045-.9.045z"/>
+      </svg>
+    </a>
+    <a href="https://wa.me/233542923463" target="_blank" rel="noopener" aria-label="WhatsApp">
+      <i data-feather="message-circle"></i>
+    </a>
+  </div>
+  <p class="copy">© 2026 Trunaturales Hair Products</p>
+</footer>
+
+<script>
+feather.replace();
+gsap.registerPlugin(ScrollTrigger);
+
+/* ── SCROLL REVEALS ── */
+gsap.to('#formCard', {
+  scrollTrigger:{ trigger:'#formCard', start:'top 88%' },
+  opacity:1, y:0, duration:1.1, ease:'power3.out'
+});
+gsap.to('#reachCard', {
+  scrollTrigger:{ trigger:'#reachCard', start:'top 88%' },
+  opacity:1, y:0, duration:1, ease:'power3.out', delay:.1
+});
+gsap.to('#hoursCard', {
+  scrollTrigger:{ trigger:'#hoursCard', start:'top 88%' },
+  opacity:1, y:0, duration:1, ease:'power3.out', delay:.2
+});
+
+/* ── TIME SLOTS ── */
+function selectSlot(el){
+  document.querySelectorAll('.slot').forEach(s=>s.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+/* ── HAIR CHIPS ── */
+function toggleChip(el){ el.classList.toggle('selected'); }
+
+/* ── FORM SUBMIT ── */
+function submitForm(){
+  const firstName  = document.getElementById('fName').value.trim();
+  const lastName   = document.getElementById('lName').value.trim();
+  const email      = document.getElementById('fEmail').value.trim();
+  const phone      = document.getElementById('fPhone').value.trim();
+  const type       = document.getElementById('consultType').value;
+  const concern    = document.getElementById('fConcern').value.trim();
+  const slot       = document.querySelector('.slot.selected');
+
+  if(!firstName || !lastName){ alert('Please enter your full name.'); return; }
+  if(!email || !/\S+@\S+\.\S+/.test(email)){ alert('Please enter a valid email address.'); return; }
+  if(!phone){ alert('Please enter your phone number.'); return; }
+  if(!type){ alert('Please choose a consultation type.'); return; }
+  if(!slot){ alert('Please choose a preferred time slot.'); return; }
+  if(!concern){ alert('Please describe your hair concern or goal.'); return; }
+
+  const selectedTime = slot.querySelector('.slot-time').textContent;
+  const hairTypes = [...document.querySelectorAll('.hair-chip.selected')].map(c=>c.textContent).join(', ') || 'Not specified';
+
+  /* Build WhatsApp message to notify business */
+  const msg =
+    `📋 *New Consultation Request*\n\n`+
+    `*Name:* ${firstName} ${lastName}\n`+
+    `*Email:* ${email}\n`+
+    `*Phone:* ${phone}\n`+
+    `*Hair Type:* ${hairTypes}\n`+
+    `*Consult Type:* ${type}\n`+
+    `*Preferred Slot:* ${selectedTime}\n\n`+
+    `*Concern / Goal:*\n${concern}`;
+
+  /* Open WhatsApp with pre-filled message */
+  window.open(`https://wa.me/233542923463?text=${encodeURIComponent(msg)}`, '_blank');
+
+  /* Show success state */
+  document.getElementById('theForm').style.display = 'none';
+  document.getElementById('successMsg').style.display = 'block';
+}
+
+/* ── CART ── */
+let cartData = [];
+try{ const s=localStorage.getItem('elan_cart'); if(s) cartData=JSON.parse(s); }catch(e){}
+
+function updateBadge(){
+  const b=document.getElementById('cartBadge');
+  const t=cartData.reduce((s,i)=>s+i.qty,0);
+  if(t>0){ b.style.display='flex'; b.textContent=t; }
+  else b.style.display='none';
+}
+
+function renderCartDrawer(){
+  const el=document.getElementById('cartItems');
+  const tot=document.getElementById('cartTotal');
+  let t=0;
+  if(cartData.length===0){
+    el.innerHTML=`<div class="cart-empty"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><p>Your cart is empty</p></div>`;
+    tot.textContent='₵0'; return;
+  }
+  el.innerHTML='';
+  cartData.forEach(i=>{
+    t+=i.price*i.qty;
+    el.innerHTML+=`<div class="cart-item"><img class="cart-item-img" src="${i.img}" alt="${i.name}"><div class="cart-item-info"><div class="cart-item-name">${i.name}</div><div class="cart-item-price">₵${i.price*i.qty}</div><div style="font-size:.8rem;color:#aaa;margin-top:3px">Qty: ${i.qty}</div></div></div>`;
+  });
+  tot.textContent=`₵${t}`;
+}
+
+function toggleCart(){
+  document.getElementById('cart').classList.toggle('active');
+  document.getElementById('cartOverlay').classList.toggle('active');
+  renderCartDrawer();
+}
+
+updateBadge();
+</script>
+</body>
+</html>

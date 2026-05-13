@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Products — Trunaturales Hair</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/feather-icons"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://js.paystack.co/v1/inline.js"></script>
+
+<style>
+:root{
+  --cream:#fffdf8;
+  --accent:#e8f5c8;
+  --green:#4CAF50;
+  --mid-green:#6abf69;
+  --deep-green:#1b5e20;
+  --gradient:linear-gradient(135deg,#4CAF50,#8BC34A);
+  --dark:#1a1a1a;
+  --muted:#666;
+  --border:rgba(0,0,0,0.07);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:Poppins,sans-serif;background:var(--cream);color:var(--dark);overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Playfair Display',serif}
+
+/* ─── NAVBAR ─────────────────────────────── */
+.navbar{
+  position:fixed;width:100%;top:0;height:70px;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:0 8%;
+  background:rgba(255,253,248,0.78);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(76,175,80,0.10);
+  z-index:999;
+}
+.logo{width:56px;border-radius:8px}
+.nav-links{display:flex;gap:36px}
+.nav-links a{
+  position:relative;text-decoration:none;
+  color:var(--dark);font-weight:500;font-size:.95rem;padding-bottom:4px;
+}
+.nav-links a::after{
+  content:"";position:absolute;left:0;bottom:0;
+  width:100%;height:2px;background:var(--green);
+  transform:scaleX(0);transform-origin:left;transition:transform .3s ease;
+}
+.nav-links a:hover::after,
+.nav-links a.active-link::after{transform:scaleX(1)}
+.icons{display:flex;gap:18px;align-items:center}
+.cart-wrapper{position:relative;cursor:pointer;display:flex;align-items:center}
+.cart-badge{
+  position:absolute;top:-8px;right:-8px;
+  background:var(--green);color:white;
+  font-size:10px;font-weight:700;font-family:Poppins;
+  width:18px;height:18px;border-radius:50%;
+  align-items:center;justify-content:center;
+  display:none;
+  box-shadow:0 2px 8px rgba(76,175,80,.5);
+}
+.cart-badge.pop{animation:badgePop .3s ease}
+@keyframes badgePop{0%{transform:scale(1)}50%{transform:scale(1.6)}100%{transform:scale(1)}}
+.hamburger{display:none;cursor:pointer}
+
+/* ─── HERO BANNER ────────────────────────── */
+.page-hero{
+  margin-top:70px;
+  height:320px;
+  background:linear-gradient(135deg,#e8f5c8 0%,#c8e6c9 50%,#a5d6a7 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;
+  position:relative;overflow:hidden;
+}
+.page-hero::before{
+  content:"";position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234CAF50' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.page-hero h1{
+  font-size:clamp(2rem,5vw,3.5rem);
+  color:var(--deep-green);
+  position:relative;z-index:1;
+}
+.page-hero p{
+  margin-top:12px;
+  font-size:1rem;color:#388E3C;
+  font-weight:400;max-width:500px;
+  position:relative;z-index:1;
+}
+.hero-leaf{
+  position:absolute;font-size:8rem;opacity:.07;
+  color:var(--deep-green);user-select:none;
+}
+.hero-leaf.l1{top:-20px;left:5%}
+.hero-leaf.l2{bottom:-30px;right:8%;font-size:11rem}
+
+/* ─── SECTIONS ───────────────────────────── */
+.products-page{padding:80px 6%}
+
+.section-block{margin-bottom:90px}
+.section-header{
+  display:flex;align-items:flex-end;gap:18px;
+  margin-bottom:50px;
+  padding-bottom:18px;
+  border-bottom:2px solid var(--accent);
+  position:relative;
+}
+.section-header::after{
+  content:"";
+  position:absolute;bottom:-2px;left:0;
+  width:60px;height:2px;background:var(--green);
+}
+.section-tag{
+  display:inline-block;
+  background:var(--accent);
+  color:var(--deep-green);
+  font-size:.72rem;font-weight:700;
+  letter-spacing:1.5px;text-transform:uppercase;
+  padding:5px 14px;border-radius:30px;
+  margin-bottom:8px;
+}
+.section-title-wrap h2{
+  font-size:clamp(1.6rem,3vw,2.2rem);
+  color:var(--dark);
+  line-height:1.2;
+}
+.section-count{
+  margin-left:auto;
+  font-size:.82rem;color:var(--muted);
+  font-weight:500;white-space:nowrap;
+  padding-bottom:4px;
+}
+
+/* ─── PRODUCT GRID ───────────────────────── */
+.prod-grid{
+  display:grid;
+  gap:32px;
+}
+.prod-grid.cols-2{grid-template-columns:repeat(2,1fr)}
+.prod-grid.cols-3{grid-template-columns:repeat(3,1fr)}
+.prod-grid.cols-1{grid-template-columns:1fr;max-width:570px}
+
+/* ─── PRODUCT CARD ───────────────────────── */
+.prod-card{
+  background:white;
+  border-radius:24px;
+  overflow:hidden;
+  box-shadow:0 12px 40px rgba(0,0,0,0.07);
+  transition:transform .35s ease,box-shadow .35s ease;
+  opacity:0;transform:translateY(50px);
+  display:flex;flex-direction:column;
+}
+.prod-card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 28px 60px rgba(76,175,80,0.15);
+}
+.prod-img-wrap{
+  position:relative;overflow:hidden;
+  height:260px;flex-shrink:0;
+}
+.prod-img-wrap img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .6s ease;
+  display:block;
+}
+.prod-card:hover .prod-img-wrap img{transform:scale(1.07)}
+
+/* category pill on image */
+.prod-cat-pill{
+  position:absolute;top:14px;left:14px;
+  background:rgba(255,255,255,0.92);
+  color:var(--deep-green);
+  font-size:.7rem;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;
+  padding:5px 12px;border-radius:20px;
+  backdrop-filter:blur(6px);
+}
+
+.prod-body{
+  padding:22px 22px 24px;
+  display:flex;flex-direction:column;flex:1;
+}
+.prod-name{
+  font-size:1.05rem;font-weight:700;
+  color:var(--dark);margin-bottom:10px;
+  line-height:1.35;
+}
+.prod-desc{
+  font-size:.82rem;color:var(--muted);
+  line-height:1.65;flex:1;margin-bottom:16px;
+}
+.prod-footer{
+  display:flex;align-items:center;
+  justify-content:space-between;gap:12px;
+  margin-top:auto;
+}
+.prod-price{
+  display:flex;flex-direction:column;gap:2px;
+}
+.prod-price .old{
+  text-decoration:line-through;
+  color:#bbb;font-size:.78rem;
+}
+.prod-price .now{
+  color:var(--green);font-weight:700;
+  font-size:1.1rem;font-family:'Playfair Display';
+}
+.add-btn{
+  display:flex;align-items:center;gap:8px;
+  padding:11px 20px;
+  border:none;border-radius:30px;
+  background:var(--gradient);color:white;
+  font-family:Poppins;font-size:.82rem;font-weight:600;
+  cursor:pointer;transition:.28s;
+  white-space:nowrap;flex-shrink:0;
+}
+.add-btn:hover{transform:scale(1.06);box-shadow:0 8px 22px rgba(76,175,80,.35)}
+.add-btn svg{flex-shrink:0}
+
+/* ─── FEATURED (wide) CARD ───────────────── */
+.prod-card.featured{
+  flex-direction:row;
+  max-width:700px;
+}
+.prod-card.featured .prod-img-wrap{
+  width:280px;height:auto;min-height:260px;flex-shrink:0;border-radius:0;
+}
+.prod-card.featured .prod-body{padding:30px 28px}
+.prod-card.featured .prod-name{font-size:1.25rem}
+.prod-card.featured .prod-desc{font-size:.88rem}
+
+/* ─── CART DRAWER ────────────────────────── */
+.cart{
+  position:fixed;right:-480px;top:0;
+  width:420px;height:100%;
+  background:var(--cream);
+  box-shadow:-4px 0 60px rgba(0,0,0,0.18);
+  transition:.42s cubic-bezier(.4,0,.2,1);
+  z-index:1000;
+  display:flex;flex-direction:column;
+}
+.cart.active{right:0}
+.cart-header{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:28px 28px 20px;
+  border-bottom:1px solid var(--border);
+}
+.cart-header h2{font-family:'Playfair Display';font-size:1.6rem;color:var(--dark)}
+.cart-close-btn{
+  background:#f0f0f0;border:none;cursor:pointer;
+  width:36px;height:36px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;transition:.2s;
+}
+.cart-close-btn:hover{background:#e0e0e0;transform:rotate(90deg)}
+.cart-body{
+  flex:1;overflow-y:auto;padding:20px 28px;
+  scrollbar-width:thin;scrollbar-color:var(--green) transparent;
+}
+.cart-item{
+  display:flex;align-items:center;gap:14px;
+  padding:14px 0;border-bottom:1px solid var(--border);
+}
+.cart-item-img{width:64px;height:64px;border-radius:14px;object-fit:cover;flex-shrink:0}
+.cart-item-info{flex:1}
+.cart-item-name{font-weight:600;font-size:.92rem;margin-bottom:4px}
+.cart-item-price{color:var(--green);font-weight:700;font-size:.9rem}
+.qty-control{display:flex;align-items:center;gap:6px;margin-top:6px}
+.qty-btn{
+  width:26px;height:26px;border:none;border-radius:50%;
+  background:var(--accent);color:var(--deep-green);
+  font-size:1rem;font-weight:700;cursor:pointer;transition:.2s;
+  display:flex;align-items:center;justify-content:center;
+}
+.qty-btn:hover{background:var(--green);color:white}
+.qty-num{font-weight:600;font-size:.9rem;min-width:18px;text-align:center}
+.cart-item-remove{background:none;border:none;cursor:pointer;color:#ccc;transition:.2s;flex-shrink:0;padding:4px}
+.cart-item-remove:hover{color:#e53935}
+.cart-empty{text-align:center;padding:60px 0;color:#aaa;font-size:.95rem}
+.cart-empty svg{margin-bottom:16px;opacity:.3}
+.cart-footer{
+  padding:20px 28px 28px;
+  border-top:1px solid var(--border);
+  background:white;
+}
+.cart-summary{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.cart-summary span{font-size:.9rem;color:#666}
+.cart-total-val{font-family:'Playfair Display';font-size:1.5rem;font-weight:700;color:var(--dark)}
+.pay-btn{
+  width:100%;padding:16px;border:none;border-radius:30px;
+  background:var(--gradient);color:white;
+  font-family:Poppins;font-size:1rem;font-weight:600;
+  cursor:pointer;transition:.3s;
+  box-shadow:0 8px 24px rgba(76,175,80,.35);letter-spacing:.4px;
+}
+.pay-btn:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(76,175,80,.45)}
+.cart-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,0.4);
+  z-index:999;opacity:0;pointer-events:none;
+  transition:.4s;backdrop-filter:blur(2px);
+}
+.cart-overlay.active{opacity:1;pointer-events:all}
+
+/* ─── CHECKOUT OVERLAY ───────────────────── */
+.checkout-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,0.7);
+  z-index:2001;display:none;
+  align-items:center;justify-content:center;
+  backdrop-filter:blur(6px);padding:20px;
+}
+.checkout-overlay.open{display:flex}
+.checkout-box{
+  background:white;border-radius:28px;
+  width:100%;max-width:500px;max-height:90vh;
+  overflow-y:auto;
+  box-shadow:0 40px 100px rgba(0,0,0,.3);
+  scrollbar-width:thin;scrollbar-color:var(--green) transparent;
+}
+.co-step{display:none;padding:38px 36px}
+.co-step.active{display:block}
+.co-step-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}
+.co-step-header h2{font-family:'Playfair Display';font-size:1.6rem}
+.co-close{
+  background:#f0f0f0;border:none;cursor:pointer;
+  width:36px;height:36px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;transition:.2s;flex-shrink:0;
+}
+.co-close:hover{background:#e0e0e0;transform:rotate(90deg)}
+.co-progress{display:flex;gap:8px;justify-content:center;margin-bottom:30px}
+.co-dot{width:8px;height:8px;border-radius:50%;background:#ddd;transition:.3s}
+.co-dot.active{background:var(--green);width:24px;border-radius:4px}
+.co-field{margin-bottom:18px}
+.co-field label{display:block;font-size:.82rem;font-weight:600;color:#555;margin-bottom:6px;letter-spacing:.4px;text-transform:uppercase}
+.co-input{
+  width:100%;padding:14px 18px;border:2px solid #eee;border-radius:14px;
+  font-family:Poppins;font-size:.95rem;outline:none;transition:.25s;color:var(--dark);
+}
+.co-input:focus{border-color:var(--green);background:#fafff6}
+.co-order-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #f0f0f0}
+.co-order-item img{width:48px;height:48px;border-radius:10px;object-fit:cover}
+.co-order-item-name{font-weight:600;font-size:.88rem;flex:1}
+.co-order-item-sub{font-size:.82rem;color:#888;margin-top:2px}
+.co-order-total{display:flex;justify-content:space-between;align-items:center;padding:16px 0 4px}
+.co-order-total span:first-child{font-weight:600;font-size:.9rem;color:#555}
+.co-order-total-val{font-family:'Playfair Display';font-size:1.5rem;font-weight:700;color:var(--dark)}
+.co-customer-preview{background:#f8f8f8;border-radius:14px;padding:14px 16px;margin-bottom:20px;font-size:.88rem;line-height:1.7;color:#555}
+.co-customer-preview strong{color:var(--dark)}
+.co-pay-options{display:flex;flex-direction:column;gap:14px;margin-top:10px}
+.co-pay-btn{
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  width:100%;padding:17px 24px;border:none;border-radius:16px;
+  font-family:Poppins;font-size:1rem;font-weight:600;cursor:pointer;transition:.3s;
+}
+.co-pay-btn.paystack{background:var(--gradient);color:white;box-shadow:0 8px 24px rgba(76,175,80,.35)}
+.co-pay-btn.paystack:hover{transform:translateY(-3px)}
+.co-pay-btn.whatsapp{background:#25D366;color:white;box-shadow:0 8px 24px rgba(37,211,102,.35)}
+.co-pay-btn.whatsapp:hover{transform:translateY(-3px)}
+.co-actions{display:flex;gap:12px;margin-top:26px}
+.co-back{
+  flex:1;padding:13px;border:2px solid #eee;border-radius:30px;
+  background:none;font-family:Poppins;font-weight:600;cursor:pointer;transition:.2s;
+}
+.co-back:hover{border-color:#ccc}
+.co-next{
+  flex:2;padding:13px;border:none;border-radius:30px;
+  background:var(--gradient);color:white;
+  font-family:Poppins;font-weight:600;cursor:pointer;transition:.2s;
+}
+.co-next:hover{transform:translateY(-2px)}
+
+/* ─── FLOATING WHATSAPP ──────────────────── */
+.wa-float{
+  position:fixed;bottom:32px;right:32px;
+  width:58px;height:58px;border-radius:50%;
+  background:#25D366;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 30px rgba(37,211,102,.5);
+  z-index:990;
+  text-decoration:none;
+  transition:.3s;
+  animation:waPulse 2.5s ease-in-out infinite;
+}
+.wa-float:hover{transform:scale(1.12);box-shadow:0 12px 40px rgba(37,211,102,.6)}
+@keyframes waPulse{
+  0%,100%{box-shadow:0 8px 30px rgba(37,211,102,.5)}
+  50%{box-shadow:0 8px 50px rgba(37,211,102,.75),0 0 0 12px rgba(37,211,102,.1)}
+}
+
+/* ─── FOOTER ─────────────────────────────── */
+footer{
+  background:var(--deep-green);color:white;
+  padding:80px 8%;text-align:center;
+}
+.footer-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:40px;text-align:left;max-width:1000px;
+  margin:0 auto 50px;
+}
+.footer-grid h3{font-family:'Playfair Display';margin-bottom:14px;font-size:1.1rem}
+.footer-grid p,.footer-grid a{
+  color:rgba(255,255,255,.8);font-size:.9rem;line-height:1.9;
+  text-decoration:none;display:block;transition:.2s;
+}
+.footer-grid a:hover{color:white;padding-left:5px}
+.footer-social{display:flex;gap:16px;justify-content:center;margin:0 0 20px}
+.footer-social a{
+  color:white;display:flex;align-items:center;justify-content:center;
+  width:42px;height:42px;border-radius:50%;
+  background:rgba(255,255,255,.12);transition:.25s;
+}
+.footer-social a:hover{background:rgba(255,255,255,.28);transform:translateY(-3px)}
+footer p.copy{color:rgba(255,255,255,.5);font-size:.85rem}
+
+/* ─── RESPONSIVE ─────────────────────────── */
+@media(max-width:900px){
+  .prod-grid.cols-3{grid-template-columns:repeat(2,1fr)}
+  .prod-card.featured{flex-direction:column}
+  .prod-card.featured .prod-img-wrap{width:100%;height:240px}
+}
+@media(max-width:640px){
+  .navbar{padding:0 5%}
+  .nav-links{
+    position:fixed;top:70px;right:-100%;
+    width:78%;height:calc(100vh - 70px);
+    background:rgba(255,253,248,.97);
+    backdrop-filter:blur(14px);
+    flex-direction:column;align-items:flex-start;
+    padding:46px 28px;gap:24px;
+    transition:right .45s cubic-bezier(.4,0,.2,1);
+    box-shadow:-20px 0 60px rgba(0,0,0,.12);
+    z-index:1000;
+  }
+  .nav-links.active{right:0}
+  .hamburger{display:block}
+  .nav-links a{
+    font-size:1.15rem;font-weight:600;
+    padding:12px 16px;border-radius:12px;
+    opacity:0;transform:translateX(30px);
+    position:relative;overflow:hidden;
+  }
+  .nav-links.active a{animation:navFade .5s forwards}
+  .nav-links.active a:nth-child(1){animation-delay:.1s}
+  .nav-links.active a:nth-child(2){animation-delay:.2s}
+  .nav-links.active a:nth-child(3){animation-delay:.3s}
+  @keyframes navFade{to{opacity:1;transform:translateX(0)}}
+  .nav-links a::before{
+    content:"";position:absolute;inset:0;
+    background:var(--accent);transform:scaleX(0);
+    transform-origin:left;transition:transform .35s ease;
+    z-index:-1;border-radius:12px;
+  }
+  .nav-links a:hover::before{transform:scaleX(1)}
+
+  .products-page{padding:50px 5%}
+  .prod-grid.cols-2,.prod-grid.cols-3{grid-template-columns:1fr}
+  .prod-grid.cols-1{max-width:100%}
+  .section-header{flex-wrap:wrap}
+  .section-count{margin-left:0}
+  .cart{width:100%;right:-100%}
+  .co-step{padding:26px 20px}
+  .page-hero{height:250px}
+  .wa-float{bottom:22px;right:20px;width:52px;height:52px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+  <img src="images/logo.jpeg" class="logo" alt="Trunaturales">
+  <div class="nav-links" id="navLinks">
+    <a href="index.html">Home</a>
+    <a href="products.html" class="active-link">Products</a>
+    <a href="consult.html">Consult</a>
+  </div>
+  <div class="icons">
+    <div class="cart-wrapper" onclick="toggleCart()">
+      <i data-feather="shopping-cart"></i>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </div>
+    <i data-feather="menu" class="hamburger"
+       onclick="document.getElementById('navLinks').classList.toggle('active')"></i>
+  </div>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <span class="hero-leaf l1">🌿</span>
+  <span class="hero-leaf l2">🌱</span>
+  <div>
+    <h1>Our Products</h1>
+    <p>Botanical formulas rooted in Ayurvedic wisdom &amp; modern science</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PRODUCTS
+══════════════════════════════════════════════ -->
+<main class="products-page">
+
+  <!-- ① SHAMPOOS -->
+  <div class="section-block" id="sec-shampoos">
+    <div class="section-header reveal-header">
+      <div class="section-title-wrap">
+        <div class="section-tag">Cleanse</div>
+        <h2>Shampoos</h2>
+      </div>
+      <span class="section-count">2 Products</span>
+    </div>
+    <div class="prod-grid cols-2" id="shampooGrid"></div>
+  </div>
+
+  <!-- ② AYURVEDIC HAIR OILS -->
+  <div class="section-block" id="sec-oils">
+    <div class="section-header reveal-header">
+      <div class="section-title-wrap">
+        <div class="section-tag">Nourish</div>
+        <h2>Ayurvedic Hair Oils</h2>
+      </div>
+      <span class="section-count">3 Products</span>
+    </div>
+    <div class="prod-grid cols-3" id="oilGrid"></div>
+  </div>
+
+  <!-- ③ CONDITIONERS -->
+  <div class="section-block" id="sec-cond">
+    <div class="section-header reveal-header">
+      <div class="section-title-wrap">
+        <div class="section-tag">Soften</div>
+        <h2>Conditioners</h2>
+      </div>
+      <span class="section-count">2 Products</span>
+    </div>
+    <div class="prod-grid cols-2" id="condGrid"></div>
+  </div>
+
+  <!-- ④ DEEP CONDITIONERS -->
+  <div class="section-block" id="sec-deep">
+    <div class="section-header reveal-header">
+      <div class="section-title-wrap">
+        <div class="section-tag">Restore</div>
+        <h2>Deep Conditioners</h2>
+      </div>
+      <span class="section-count">1 Product</span>
+    </div>
+    <div class="prod-grid cols-1" id="deepGrid"></div>
+  </div>
+
+  <!-- ⑤ BUTTERS -->
+  <div class="section-block" id="sec-butters">
+    <div class="section-header reveal-header">
+      <div class="section-title-wrap">
+        <div class="section-tag">Seal</div>
+        <h2>Hair Butters</h2>
+      </div>
+      <span class="section-count">1 Product</span>
+    </div>
+    <div class="prod-grid cols-1" id="butterGrid"></div>
+  </div>
+
+</main>
+
+<!-- CART OVERLAY -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+
+<!-- CART DRAWER -->
+<div class="cart" id="cart">
+  <div class="cart-header">
+    <h2>Your Cart</h2>
+    <button class="cart-close-btn" onclick="toggleCart()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="cart-body" id="cartItems"></div>
+  <div class="cart-footer">
+    <div class="cart-summary">
+      <span>Total</span>
+      <span class="cart-total-val" id="cartTotal">₵0</span>
+    </div>
+    <button class="pay-btn" onclick="openCheckout()">Checkout</button>
+  </div>
+</div>
+
+<!-- CHECKOUT OVERLAY -->
+<div class="checkout-overlay" id="checkoutOverlay">
+  <div class="checkout-box">
+    <!-- Step 1 -->
+    <div class="co-step active" id="coStep1">
+      <div class="co-step-header">
+        <h2>Your Details</h2>
+        <button class="co-close" onclick="closeCheckout()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="co-progress">
+        <div class="co-dot active"></div><div class="co-dot"></div><div class="co-dot"></div>
+      </div>
+      <div class="co-field"><label>Full Name</label><input type="text" class="co-input" id="coName" placeholder="e.g. Abena Mensah"></div>
+      <div class="co-field"><label>Email Address</label><input type="email" class="co-input" id="coEmail" placeholder="you@example.com"></div>
+      <div class="co-field"><label>Phone Number</label><input type="tel" class="co-input" id="coPhone" placeholder="+233 XX XXX XXXX"></div>
+      <div class="co-actions">
+        <button class="co-back" onclick="closeCheckout()">Cancel</button>
+        <button class="co-next" onclick="goToStep2()">Review Order →</button>
+      </div>
+    </div>
+    <!-- Step 2 -->
+    <div class="co-step" id="coStep2">
+      <div class="co-step-header">
+        <h2>Order Summary</h2>
+        <button class="co-close" onclick="closeCheckout()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="co-progress">
+        <div class="co-dot"></div><div class="co-dot active"></div><div class="co-dot"></div>
+      </div>
+      <div class="co-customer-preview" id="coCustomerPreview"></div>
+      <div id="coOrderItems"></div>
+      <div class="co-order-total">
+        <span>Order Total</span>
+        <span class="co-order-total-val" id="coOrderTotal"></span>
+      </div>
+      <div class="co-actions">
+        <button class="co-back" onclick="goToStep1()">← Back</button>
+        <button class="co-next" onclick="goToStep3()">Confirm Order →</button>
+      </div>
+    </div>
+    <!-- Step 3 -->
+    <div class="co-step" id="coStep3">
+      <div class="co-step-header">
+        <h2>Pay Now</h2>
+        <button class="co-close" onclick="closeCheckout()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="co-progress">
+        <div class="co-dot"></div><div class="co-dot"></div><div class="co-dot active"></div>
+      </div>
+      <p style="color:#777;font-size:.9rem;margin-bottom:24px">Choose how you'd like to complete your purchase:</p>
+      <div class="co-pay-options">
+        <button class="co-pay-btn paystack" onclick="payWithPaystack()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          Pay with Paystack
+        </button>
+        <button class="co-pay-btn whatsapp" onclick="payWithWhatsApp()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.553 4.103 1.522 5.83L.057 23.27l5.587-1.464A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.817 9.817 0 01-5.003-1.373l-.359-.213-3.718.975.99-3.617-.234-.372A9.817 9.817 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+          Order via WhatsApp
+        </button>
+      </div>
+      <div class="co-actions" style="margin-top:20px">
+        <button class="co-back" onclick="goToStep2()">← Back</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FLOATING WHATSAPP -->
+<a class="wa-float" href="https://wa.me/233542923463" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+    <path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.553 4.103 1.522 5.83L.057 23.27l5.587-1.464A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.817 9.817 0 01-5.003-1.373l-.359-.213-3.718.975.99-3.617-.234-.372A9.817 9.817 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/>
+  </svg>
+</a>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <h3>Location</h3>
+      <p>Accra, Ghana</p>
+    </div>
+    <div>
+      <h3>Contact</h3>
+      <p>info@trunaturales.com</p>
+      <p>+233 542 923 463</p>
+    </div>
+    <div>
+      <h3>Quick Links</h3>
+      <a href="index.html">Home</a>
+      <a href="product.html">Shop</a>
+      <a href="consult.html">Consult</a>
+    </div>
+  </div>
+  <div class="footer-social">
+    <a href="https://www.instagram.com/trunaturales" target="_blank" rel="noopener" aria-label="Instagram">
+      <i data-feather="instagram"></i>
+    </a>
+    <a href="https://www.tiktok.com/@trunaturales1" target="_blank" rel="noopener" aria-label="TikTok">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M19.589 6.686a4.793 4.793 0 01-3.77-1.885V4h-3.2v12.3a2.9 2.9 0 11-2.9-2.9c.225 0 .444.025.655.072V10.1a6.1 6.1 0 00-.655-.035A6.1 6.1 0 1015.8 16.2V9.57a8.02 8.02 0 004.689 1.496V7.8c-.33.03-.66.045-.9.045z"/>
+      </svg>
+    </a>
+    <a href="https://wa.me/233542923463" target="_blank" rel="noopener" aria-label="WhatsApp">
+      <i data-feather="message-circle"></i>
+    </a>
+  </div>
+  <p class="copy">© 2026 Trunaturales Hair Products</p>
+</footer>
+
+<script>
+feather.replace();
+gsap.registerPlugin(ScrollTrigger);
+
+/* ════════════════════════════════════════
+   PRODUCT DATA
+════════════════════════════════════════ */
+const shampoos = [
+  {
+    name: "Intense Moisture Clarifying Shampoo",
+    desc: "A gentle yet powerful clarifying formula that strips buildup without stripping moisture. Enriched with hibisicus and shikaikai extract, it leaves your scalp refreshed and your strands silky-smooth.",
+    price: 60, oldPrice: null,
+    img: "images/shampoo1.jpeg",
+    cat: "Shampoo"
+  },
+  {
+    name: "Anti-Dandruff Repair Shampoo",
+    desc: "Targets flakes at the root with a soothing blend of neem, peppermint, and tea tree. Balances scalp pH while hydrating each strand ",
+    price: 70, oldPrice: null,
+    img: "images/shampoo2.jpeg",
+    cat: "Shampoo"
+  }
+];
+
+const oils = [
+  {
+    name: "Super Hair Revival Tonic",
+    desc: "A potent Ayurvedic blend with bhringraj, amla, brahmi and over 100 additional Ayurvedic herbs infused in a lightweight carrier base. It stimulates dormant follicles, reverses thinning and quickens hair growth.",
+    price: 70, oldPrice: 80,
+    img: "images/oil1.jpeg",
+    cat: "Ayurvedic Oil"
+  },
+  {
+    name: "Hair Growth Serum",
+    desc: " A fast-absorbing serum supercharged with olive oil, rosemary, hibisicus and 12 other Ayurvedic herbs. Promotes circulation at the scalp to accelerate growth cycles. Visible results within 3 weeks of consistent use.",
+    price: 50, oldPrice: 55,
+    img: "images/oil2.jpeg",
+    cat: "Ayurvedic Oil"
+  },
+  {
+    name: "Anti-Dandruff Elixir",
+    desc: "A soothing scalp elixir combining neem, eucalyptus, moringa and potent Ayurvedic herbs to combat dandruff at its source. Reduces inflammation, itchiness, and flakiness while conditioning each strand from root to tip.",
+    price: 65, oldPrice: 70,
+    img: "images/oil3.jpeg",
+    cat: "Ayurvedic Oil"
+  }
+];
+
+const conditioners = [
+  {
+    name: "Aloe & Moringa Leave-in Conditioner",
+    desc: "A daily conditioner powered by aloe, moringa and vitamin E. Detangles effortlessly, reduces frizz, and seals the cuticle for lasting softness — safe for coloured and chemically-treated hair.",
+    price: 50, oldPrice: null,
+    img: "images/conditioner2.jpeg",
+    cat: "Conditioner"
+  },
+  {
+    name: "Hydrating Rinse-Out Conditioner",
+    desc: "Fortifies fragile strands with hydrolysed oat and shea butter. Dramatically reduces breakage and split ends, leaving hair elastic, strong, and beautifully smooth after every wash.",
+    price: 50, oldPrice: null,
+    img: "images/conditioner3.jpeg",
+    cat: "Conditioner"
+  }
+];
+
+const deepCond = [
+  {
+    name: "Intensive Repair Deep Conditioning Hair Mask",
+    desc: "A luxurious treatment that penetrates deep into the cortex to reconstruct damaged bonds. Formulated with avocado oil, mango butter, and Ayurvedic herbs ,one application transforms dry, brittle hair or damaged hair into soft, healthy and luscious strands.",
+    price: 80, oldPrice:95,
+    img: "images/deep.jpeg",
+    cat: "Deep Conditioner",
+    featured: true
+  }
+];
+
+const butters = [
+  {
+    name: "Deep & Nourishing  Hair Butter",
+    desc: "A cloud-light whipped butter that melts on contact, sealing moisture into coils and curls without heaviness. Blended with shea, mango,avocado butter, and Ayurvedic herbs to feed the scalp and encourage healthy regrowth.",
+    price: 55, oldPrice: 65,
+    img: "images/butter.jpeg",
+    cat: "Hair Butter",
+    featured: true
+  }
+];
+
+/* ════════════════════════════════════════
+   CONFIG
+════════════════════════════════════════ */
+const PAYSTACK_PUBLIC_KEY = 'pk_live_6e372480afdca60302d97ac83e7d2d1c8900c425';
+const WHATSAPP_NUMBER = '233542923463';
+
+/* ════════════════════════════════════════
+   RENDER
+════════════════════════════════════════ */
+function buildCard(p) {
+  const priceHTML = p.oldPrice
+    ? `<div class="prod-price"><span class="old">GHS ${p.oldPrice}</span><span class="now">GHS ${p.price}</span></div>`
+    : `<div class="prod-price"><span class="now">GHS ${p.price}</span></div>`;
+
+  const card = document.createElement('div');
+  card.className = 'prod-card' + (p.featured ? ' featured' : '');
+  card.innerHTML = `
+    <div class="prod-img-wrap">
+      <img src="${p.img}" alt="${p.name}" loading="lazy">
+      <span class="prod-cat-pill">${p.cat}</span>
+    </div>
+    <div class="prod-body">
+      <h3 class="prod-name">${p.name}</h3>
+      <p class="prod-desc">${p.desc}</p>
+      <div class="prod-footer">
+        ${priceHTML}
+        <button class="add-btn" onclick='addToCart(${JSON.stringify(p)})'>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add to Cart
+        </button>
+      </div>
+    </div>`;
+  return card;
+}
+
+function renderSection(data, gridId) {
+  const g = document.getElementById(gridId);
+  data.forEach(p => g.appendChild(buildCard(p)));
+}
+
+renderSection(shampoos,  'shampooGrid');
+renderSection(oils,      'oilGrid');
+renderSection(conditioners, 'condGrid');
+renderSection(deepCond,  'deepGrid');
+renderSection(butters,   'butterGrid');
+
+/* ════════════════════════════════════════
+   GSAP SCROLL REVEAL
+════════════════════════════════════════ */
+// Section headers fade in
+document.querySelectorAll('.reveal-header').forEach(el => {
+  gsap.from(el, {
+    scrollTrigger:{ trigger:el, start:'top 88%' },
+    opacity:0, y:35, duration:1, ease:'power3.out'
+  });
+});
+
+// Cards stagger in per section
+['shampooGrid','oilGrid','condGrid','deepGrid','butterGrid'].forEach(id => {
+  const cards = document.querySelectorAll(`#${id} .prod-card`);
+  cards.forEach((card, i) => {
+    gsap.to(card, {
+      scrollTrigger:{ trigger:card, start:'top 90%' },
+      opacity:1, y:0,
+      duration:.9,
+      delay: i * 0.12,
+      ease:'power3.out'
+    });
+  });
+});
+
+/* ════════════════════════════════════════
+   CART STATE
+════════════════════════════════════════ */
+let cartItems = [];
+try { const s = localStorage.getItem('elan_cart'); if(s) cartItems = JSON.parse(s); } catch(e){}
+
+function saveCart(){ try{ localStorage.setItem('elan_cart', JSON.stringify(cartItems)); }catch(e){} }
+
+function updateBadge(){
+  const b = document.getElementById('cartBadge');
+  const t = cartItems.reduce((s,i)=>s+i.qty,0);
+  if(t>0){ b.style.display='flex'; b.textContent=t; b.classList.remove('pop'); void b.offsetWidth; b.classList.add('pop'); }
+  else b.style.display='none';
+}
+
+function addToCart(p){
+  const it = cartItems.find(i=>i.name===p.name);
+  if(it) it.qty++; else cartItems.push({...p,qty:1});
+  saveCart(); updateBadge(); renderCartDrawer();
+  // briefly open cart
+  const c=document.getElementById('cart');
+  if(!c.classList.contains('active')) toggleCart();
+}
+
+function rem(n){ cartItems=cartItems.filter(i=>i.name!==n); saveCart(); updateBadge(); renderCartDrawer(); }
+
+function changeQty(n,v){
+  const it=cartItems.find(i=>i.name===n);
+  if(!it) return;
+  it.qty+=v;
+  if(it.qty<=0) cartItems=cartItems.filter(i=>i.name!==n);
+  saveCart(); updateBadge(); renderCartDrawer();
+}
+
+function renderCartDrawer(){
+  const el=document.getElementById('cartItems');
+  const tot=document.getElementById('cartTotal');
+  let t=0;
+  if(cartItems.length===0){
+    el.innerHTML=`<div class="cart-empty"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><p>Your cart is empty</p></div>`;
+    tot.textContent='₵0'; return;
+  }
+  el.innerHTML='';
+  cartItems.forEach(i=>{
+    t+=i.price*i.qty;
+    el.innerHTML+=`
+      <div class="cart-item">
+        <img class="cart-item-img" src="${i.img}" alt="${i.name}">
+        <div class="cart-item-info">
+          <div class="cart-item-name">${i.name}</div>
+          <div class="cart-item-price">₵${i.price*i.qty}</div>
+          <div class="qty-control">
+            <button class="qty-btn" onclick="changeQty('${i.name}',-1)">−</button>
+            <span class="qty-num">${i.qty}</span>
+            <button class="qty-btn" onclick="changeQty('${i.name}',1)">+</button>
+          </div>
+        </div>
+        <button class="cart-item-remove" onclick="rem('${i.name}')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6M9 6V4h6v2"/></svg>
+        </button>
+      </div>`;
+  });
+  tot.textContent=`₵${t}`;
+}
+
+function toggleCart(){
+  document.getElementById('cart').classList.toggle('active');
+  document.getElementById('cartOverlay').classList.toggle('active');
+  renderCartDrawer();
+}
+
+/* ════════════════════════════════════════
+   CHECKOUT STEPS
+════════════════════════════════════════ */
+let _coName='',_coEmail='',_coPhone='';
+
+function openCheckout(){
+  if(cartItems.length===0) return;
+  showStep(1);
+  ['coName','coEmail','coPhone'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('checkoutOverlay').classList.add('open');
+}
+function closeCheckout(){ document.getElementById('checkoutOverlay').classList.remove('open'); }
+function showStep(n){
+  [1,2,3].forEach(s=>document.getElementById('coStep'+s).classList.toggle('active',s===n));
+}
+function goToStep1(){ showStep(1); }
+function goToStep3(){ showStep(3); }
+function goToStep2(){
+  const name=document.getElementById('coName').value.trim();
+  const email=document.getElementById('coEmail').value.trim();
+  const phone=document.getElementById('coPhone').value.trim();
+  if(!name){alert('Please enter your full name.');return;}
+  if(!email||!/\S+@\S+\.\S+/.test(email)){alert('Please enter a valid email.');return;}
+  if(!phone){alert('Please enter your phone number.');return;}
+  _coName=name;_coEmail=email;_coPhone=phone;
+  document.getElementById('coCustomerPreview').innerHTML=`<strong>${name}</strong><br>${email} · ${phone}`;
+  const oi=document.getElementById('coOrderItems');
+  oi.innerHTML='';let tot=0;
+  cartItems.forEach(i=>{
+    tot+=i.price*i.qty;
+    oi.innerHTML+=`<div class="co-order-item"><img src="${i.img}" alt="${i.name}"><div style="flex:1"><div class="co-order-item-name">${i.name}</div><div class="co-order-item-sub">Qty: ${i.qty} × ₵${i.price}</div></div><div style="font-weight:700;color:var(--green)">₵${i.price*i.qty}</div></div>`;
+  });
+  document.getElementById('coOrderTotal').textContent=`₵${tot}`;
+  showStep(2);
+}
+
+/* ════════════════════════════════════════
+   PAYMENTS
+════════════════════════════════════════ */
+function payWithPaystack(){
+  const total=cartItems.reduce((s,i)=>s+i.price*i.qty,0);
+  PaystackPop.setup({
+    key:PAYSTACK_PUBLIC_KEY,email:_coEmail,amount:total*100,currency:'GHS',
+    ref:'TRU_'+Date.now(),
+    metadata:{custom_fields:[
+      {display_name:"Name",variable_name:"name",value:_coName},
+      {display_name:"Phone",variable_name:"phone",value:_coPhone},
+      {display_name:"Cart",variable_name:"cart",value:cartItems.map(i=>`${i.name} x${i.qty}`).join(', ')}
+    ]},
+    callback:function(r){
+      cartItems=[];saveCart();updateBadge();renderCartDrawer();closeCheckout();
+      alert('✅ Payment successful! Ref: '+r.reference);
+    },
+    onClose:function(){}
+  }).openIframe();
+}
+
+function payWithWhatsApp(){
+  const total=cartItems.reduce((s,i)=>s+i.price*i.qty,0);
+  const lines=cartItems.map(i=>`• ${i.name} x${i.qty} — ₵${i.price*i.qty}`).join('\n');
+  const msg=`Hello Trunaturales! 👋\n\nI'd like to place an order:\n\n${lines}\n\n*Total: ₵${total}*\n\n---\nName: ${_coName}\nEmail: ${_coEmail}\nPhone: ${_coPhone}`;
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,'_blank');
+}
+
+/* ════════════════════════════════════════
+   INIT
+════════════════════════════════════════ */
+updateBadge();
+</script>
+</body>
+</html>
